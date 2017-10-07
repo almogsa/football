@@ -19,25 +19,26 @@
 
 <ion-content>
 
-    <div class=" bench-background" style="  margin-bottom: -5px;"   *ngIf="arrivedPlayers.length > 10">
-        <div class="" style="width: 70%;  height: 58px;margin: 0 auto;display:flex">
+    <div class=" bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">
+        <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  (click)="goToDetails(player2.name)">
+            <div class="child">
+            <img ng-src="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+            <div> {{player2.name}}</div>
+          </div>
+          </div>  
+        <!-- <div class="" style="width: 70%;  height: 58px;margin: 0 auto;display:flex">
             <ion-scroll scrollX="true" class="wide-as-needed" [ngStyle]="{'left': '70px'}" style="position: relative;
             top: 5px;
             margin: 0px auto;
             width: 100%;
            ">
-                <div class="item-bench" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  (click)="goToDetails(player2.name)">
-                  <div class="child">
-                  <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
-                  <div> {{player2.name}}</div>
-                </div>
-                </div>  
+               
               </ion-scroll> 
             
-        </div>
+        </div> -->
         </div>
   
-  <div style="background: url('../assets/soccer_field.png') 0% 0% / 100% 100% no-repeat; height: 760px; width: 100%;display:flex; border: 1px solid black;flex-direction:column;">
+  <div style="background: url('../assets/soccer_field.png') 0% 0% / 100% 100% no-repeat; height:  calc(100% - 120px); width: 100%;display:flex; border: 1px solid black;flex-direction:column;">
 
   
     <div class="first-player">
@@ -50,8 +51,8 @@
   </div>
     <div class="container">
     <div class="item" *ngFor="let player2 of arrivedPlayers.slice(1,5)" >
-      <div class="child">
-      <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+      <div class="child" (click)="goToDetails(player2)">
+      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
       <div> {{player2.name}}</div>
     </div>
     </div>   
@@ -59,14 +60,14 @@
   <div class="container">
     <div class="item" *ngFor="let player2 of arrivedPlayers.slice(5,9)" >
       <div class="child">
-      <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
       <div> {{player2.name}}</div>
     </div>
     </div>   
     <div class="">
         <div class="item" *ngFor="let player2 of arrivedPlayers.slice(9,10)" >
         <div class="child">
-            <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
             <div> {{player2.name}}</div>  
           </div>
     </div>
@@ -79,36 +80,31 @@
 </div>
 
 
-<div class=" bench-background" style="  margin-bottom: -5px;" >
-    <div class="" style="width: 80%;  height: 58px;margin: 0 auto;display:flex">
+<div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >
+    <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">
+        <div class="child">
+        <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+        <div> {{player2.name}}</div>
+      </div>
+      </div>  
+
+
+    <!-- <div class="" style="width: 80%;  height: 58px;margin: 0 auto;display:flex">
         <ion-scroll scrollX="true" class="wide-as-needed"  style="position: relative;
         top: 5px;
         margin: 0px auto;
         width: 100%;
        ">
-            <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">
-              <div class="child">
-              <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
-              <div> {{player2.name}}</div>
-            </div>
-            </div>  
+          
           </ion-scroll> 
         
+    </div> -->
     </div>
-    </div>
-    <button (click)="resetPlayers()" style="height:50px">  RESET  </button>
+    
 
 
 
-<ion-list no-lines>
-  <ion-item *ngFor="let player of players">
-      <ion-avatar item-left>
-          <ion-icon name="pin"></ion-icon>
-      </ion-avatar>
-      <h2>{{player.name}}</h2>
-      <p>{{player.strngth}} miles</p>
-  </ion-item>
-</ion-list>
+
 
 </ion-content>
 

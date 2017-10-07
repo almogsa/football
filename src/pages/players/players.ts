@@ -1,3 +1,4 @@
+import { PlayerDetailsPage } from './../player-details/player-details';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
@@ -21,6 +22,7 @@ export class PlayersPage {
   allTeams = [];
   arrivedPlayers=[];
   penddingdPlayers=[];
+  default_img = '../assets/empty_profile.png'
   constructor(public navCtrl: NavController, public navParams: NavParams, public playaers_api: PlayersApiProvider) {
     // gitHubUsers.load().subscribe(users => {
     //   console.log(users);
@@ -31,15 +33,21 @@ export class PlayersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UsersPage');
-     this.playaers_api.load().then((res) => { 
-       this.players = res;
-       console.log('response' + res );
-       this.refresh();
-       });
+    this.playaers_api.load2().subscribe(data=>{
+
+      console.log('SUBSCRIBE load2');
+      this.players=data;
+      this.refresh();
+    })
+    //  this.playaers_api.load().then((res) => { 
+    //    this.players = res;
+    //    console.log('response' + res );
+    //    this.refresh();
+    //    });
     //this.line();
   }
-  goToDetails(login:string){
-   // this.navCtrl.push(UserDetailsPage,{login: login});
+  goToDetails(player:any){
+    this.navCtrl.push(PlayerDetailsPage, {player});
   }
   search(searchEvent ){
     let term = searchEvent.target.value;
@@ -53,6 +61,7 @@ export class PlayersPage {
     }
 
   }
+ 
  
   
   line(){

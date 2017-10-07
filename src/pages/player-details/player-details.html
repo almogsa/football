@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> {{player?.name}}'s details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding >
+  <ion-list>
+      <ion-item>
+          <ion-label> Arrive</ion-label>
+          <ion-toggle  [(ngModel)]="player.arrive"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label> Admin</ion-label>
+            <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>
+          </ion-item>
+    <ion-item>
+      <ion-label>Arrive</ion-label>
+      <ion-badge item-right>{{player?.arrive}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Number</ion-label>
+      <ion-badge item-right>{{player?.number}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Strength</ion-label>
+      <ion-badge item-right>{{player?.strength}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Image</ion-label>
+      <ion-input  item-right type="text"  [(ngModel)]="player.img" ></ion-input>
+      <!-- <ion-text item-right>{{player?.img}}  [(ngModel)]="player.img"</ion-text> -->
+    </ion-item>
+  </ion-list>    
+  <button ion-button full (click)="updatePlayer(player)">Update</button>
+</ion-content>

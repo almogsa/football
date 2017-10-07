@@ -16,17 +16,23 @@ page-players {
     .bench-background {
         background-image: url(../assets/playersBase.png);
         background-position: 100% 100%;
-        height: 58px;
+        // height: 60px;
+        margin-bottom: -5px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom: -5px;
     }
     .item-bench{
         display: inline-block;
         padding: 5px;
     }
+   
     .wide-as-needed {
-    //    overflow: scroll;
+        overflow: scroll;
         white-space: nowrap;
         width:100%;
-        display: flex;
+    //    display: flex;
     }
 
     
@@ -75,6 +81,8 @@ page-players {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        color:#FFFFFF;
+        padding-left: 10px;
     }
     .item:nth-child(even) {
         flex-basis: 50%;

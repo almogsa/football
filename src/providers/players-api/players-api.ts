@@ -53,31 +53,36 @@ export class PlayersApiProvider {
 
   }
   resetPlayers(){
-    let playersRef = this.firebase.database.ref(teamID).child('players');
    
-   // let playersRef = this.firebase.list(baseURL);
-    // playersRef.on('child_changed', function (snap) {
-    //   console.log('****CHILD CHANGED***');
-    //  });
+    let playersRef = this.firebase.database.ref(baseURL);
+     playersRef.on('child_changed', function (snap) {
+       console.log('****CHILD CHANGED***');
+      });
 
-     let obj2Update = {'arrive':false};
-     let objects2 =  this.bulkUpdate(this.data,obj2Update);
-     //playersRef.update(objects2);
-     let v =  this.firebase.database.ref().update(objects2);
-    //this.firebase.object(baseURL).update(objects2); 
-    
-    
-    //this.firebase.object(baseURL).update({arrive: false});
+     let field = 'arrive';
+     let value = false;
+     let players2Update =  this.bulkUpdate(this.data,field,value);
+     return  this.firebase.database.ref().update(players2Update);
+  //   let v =  this.firebase.database.ref().update(players2Update).then( x => {
+    //   console.log('finish update all players');
+    // });
   }
-  // getPlayer(player: any): any {
-  //   new Promise(resolve => {
-  //    let player2 = this.firebase.object(baseURL +  player.$key).subscribe(data=>{
-  //      console.log('P' + data);
-  //      console.log('P' + data);
-  //      resolve(player2);
-  //    });
-  //   });
-  // }
+  getPlayer(player: any): any {
+    new Promise(resolve => {
+     let player2 = this.firebase.object(baseURL +  player.$key).subscribe(data=>{
+        console.log('P' + data);
+        console.log('P' + data);
+        resolve(player2);
+      });
+     });
+   }
+
+  load2(){
+    
+          return this.firebase.list(baseURL);
+          
+          }
+
   load(){
     
 
@@ -116,16 +121,16 @@ export class PlayersApiProvider {
           removeItem(id) {
             this.firebase.list(baseURL).remove(id);
           }
-          bulkUpdate(ref, obj) {
+          bulkUpdate(ref, field , value) {
             // object to hold the bulk update
             var batch = {};
             // Using a ES6 promise here, use a library or polyfil for compatibility
             // using Object.keys will allow us to iterate over an array or object
             Object.keys(ref).forEach(function(r) {
               // get the push id from the child reference, no server trip is made here
-              var pushId = baseURL+r+'/arrive';
+              var pushId = baseURL+r+'/'+field;
               // get the value from the collection
-              var itemValue = false;
+              var itemValue = value;
               // using the pushId, assign the value to the bulk update object
               batch[pushId] = itemValue;
             });
