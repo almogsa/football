@@ -35,7 +35,7 @@ export class PlayersPage {
     console.log('ionViewDidLoad UsersPage');
     this.playaers_api.load2().subscribe(data=>{
 
-      console.log('SUBSCRIBE load2');
+      console.log('SUBSCRIBE load2' + data);
       this.players=data;
       this.refresh();
     })
@@ -169,7 +169,7 @@ export class PlayersPage {
      this.playaers_api.updatePlayer(player,{ arrive: true});
      this.refresh();
      
-    console.log()
+    console.log();
   }
   refresh(){
     this.arrivedPlayers =  this.players.filter(function(player){ return player.arrive === true});

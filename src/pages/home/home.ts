@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
+import { PlayerDetailsPage } from "../player-details/player-details";
 
 @Component({
   selector: 'page-home',
@@ -36,6 +37,9 @@ export class HomePage {
       ]
     });
     confirm.present();
+  }
+  goToDetails(player:any){
+    this.navCtrl.push(PlayerDetailsPage, {player});
   }
 
 }

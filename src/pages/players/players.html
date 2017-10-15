@@ -20,9 +20,9 @@
 <ion-content>
 
     <div class=" bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">
-        <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  (click)="goToDetails(player2.name)">
-            <div class="child">
-            <img ng-src="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+        <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  >
+            <div class="child" (click)="goToDetails(player2)">
+            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
             <div> {{player2.name}}</div>
           </div>
           </div>  
@@ -43,8 +43,8 @@
   
     <div class="first-player">
         <div class="item" *ngFor="let player2 of arrivedPlayers.slice(0,1)" >
-        <div class="child">
-            <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+        <div class="child" (click)="goToDetails(player2)">
+            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
             <div> {{player2.name}}</div>  
           </div>
     </div>
@@ -59,14 +59,14 @@
   </div>
   <div class="container">
     <div class="item" *ngFor="let player2 of arrivedPlayers.slice(5,9)" >
-      <div class="child">
+      <div class="child" (click)="goToDetails(player2)">
       <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
       <div> {{player2.name}}</div>
     </div>
     </div>   
     <div class="">
         <div class="item" *ngFor="let player2 of arrivedPlayers.slice(9,10)" >
-        <div class="child">
+        <div class="child" (click)="goToDetails(player2)">
             <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
             <div> {{player2.name}}</div>  
           </div>
@@ -83,7 +83,7 @@
 <div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >
     <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">
         <div class="child">
-        <img ng-src="https://graph.facebook.com/258153891344790/picture" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+        <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
         <div> {{player2.name}}</div>
       </div>
       </div>  

@@ -1,3 +1,4 @@
+import { PlayerDetailsPage } from './../player-details/player-details';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
@@ -19,6 +20,9 @@ players:any;
       
        });
     //this.line();
+  }
+  goToDetails(player:any){
+    this.navCtrl.push(PlayerDetailsPage, {player});
   }
 
 }

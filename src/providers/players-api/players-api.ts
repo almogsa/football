@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { LoadingController } from 'ionic-angular';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
 
 const teamID = 'teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8';
@@ -20,9 +21,11 @@ export class PlayersApiProvider {
   players: FirebaseListObservable<any[]>;
   private _db: any;
   private _playersRef: any;
-  constructor(public http: Http,public firebase : AngularFireDatabase) {
+  loader:any;
+  
+  constructor(public http: Http,public firebase : AngularFireDatabase,public loadingCtrl: LoadingController) {
     console.log('Hello PlayersApiProvider Provider');
-    debugger;
+   
     // this._db = firebase.database().ref('/'); // Get a firebase reference to the root this._todosRef = firebase.database().ref('todos'); // Get a firebase reference to the todos
     // console.log('DB : '+ this._db);
     // this._playersRef = firebase.database().ref('teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8'); // Get a firebase reference to the todos
@@ -42,18 +45,22 @@ export class PlayersApiProvider {
   }
 
   updatePlayer(player: any,config : any): void {
-    // let player2 = this.firebase.object(baseURL +  player.$key).subscribe(data=>{
-    //   console.log('P' + data);
-    //   console.log('P' + data);
-      
-    // });
     
-    this.firebase.object(baseURL + player.$key).update(config);
-    console.log('updated');
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    this.loader.present();
+    this.firebase.object(baseURL + player.$key).update(config).then(x => {
+      this.loader.dismiss();
+      console.log(' player updated: ' + x);});
+    
 
   }
   resetPlayers(){
-   
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    this.loader.present();
     let playersRef = this.firebase.database.ref(baseURL);
      playersRef.on('child_changed', function (snap) {
        console.log('****CHILD CHANGED***');
@@ -62,7 +69,9 @@ export class PlayersApiProvider {
      let field = 'arrive';
      let value = false;
      let players2Update =  this.bulkUpdate(this.data,field,value);
-     return  this.firebase.database.ref().update(players2Update);
+     return  this.firebase.database.ref().update(players2Update).then(x => {
+      this.loader.dismiss();
+     });
   //   let v =  this.firebase.database.ref().update(players2Update).then( x => {
     //   console.log('finish update all players');
     // });

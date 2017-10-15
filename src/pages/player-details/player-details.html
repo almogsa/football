@@ -6,11 +6,15 @@
 
 <ion-content padding >
   <ion-list>
+      <ion-item >
+          <ion-label> Name</ion-label>
+          <ion-input text-right [(ngModel)]="player.name"></ion-input>
+        </ion-item>
       <ion-item>
           <ion-label> Arrive</ion-label>
           <ion-toggle  [(ngModel)]="player.arrive"></ion-toggle>
         </ion-item>
-        <ion-item>
+        <ion-item [hidden]="!player.admin">
             <ion-label> Admin</ion-label>
             <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>
           </ion-item>
@@ -23,8 +27,18 @@
       <ion-badge item-right>{{player?.number}}</ion-badge>
     </ion-item>
      <ion-item>
-      <ion-label>Strength</ion-label>
-      <ion-badge item-right>{{player?.strength}}</ion-badge>
+      <ion-label>Strength 
+          <ion-badge item-right>{{player?.strength}}</ion-badge>
+      </ion-label>
+        
+          <ion-range item-right [(ngModel)]="player.strength" min="0" max="10" step="0.2" pin="true" >
+              <ion-label range-left class="small-text">0</ion-label>
+              <ion-label range-right>10</ion-label>
+          </ion-range>
+    
+      
+     
+      <!-- <ion-badge item-right>{{player?.strength}}</ion-badge> -->
     </ion-item>
      <ion-item>
       <ion-label>Image</ion-label>
