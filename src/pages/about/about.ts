@@ -17,13 +17,17 @@ export class AboutPage {
   penddingdPlayers=[];
   default_img = '../assets/empty_profile.png'
   constructor(public navCtrl: NavController,public playaers_api: PlayersApiProvider) {
+    // let playersRef = this.firebase.database.ref(baseURL);
+    // playersRef.on('child_changed', function (snap) {
+    //   console.log('****CHILD CHANGED***');
+    //  });
 
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad UsersPage');
     this.playaers_api.load2().subscribe(data=>{
 
-      console.log('SUBSCRIBE load2' + data);
+      console.log('Line Page get players load2' + data);
       this.players=data;
       this.line();
     })
@@ -31,6 +35,10 @@ export class AboutPage {
   line(){
     
     this.arrivedPlayers =  this.players.filter(function(player){ return player.arrive === true});
+    debugger;
+    if (this.arrivedPlayers.length < 8){
+      return;
+    }
     this.penddingdPlayers = this.players.filter(function(player){ return player.arrive === false});
     var  sortedPlayer = Object.assign([],this.arrivedPlayers.sort( function(a,b){ return b.strength - a.strength})) ;
     var total = this.arrivedPlayers.length;
@@ -64,9 +72,10 @@ export class AboutPage {
     var  teamC = [];
     var  teamD = [];
     var  teamE = [];
+    var  teamF = [];
     var lastteam = 0;
     var iterations = 1;
-    this.allTeams = [teamA,teamB,teamC,teamD,teamE];
+    this.allTeams = [teamA,teamB,teamC,teamD,teamE,teamF];
     this.allTeams = this.allTeams.slice(0, -(this.allTeams.length - teams));
    
    
@@ -127,7 +136,6 @@ export class AboutPage {
   }
   }
   teamPower(team){
-    debugger;
     console.log('team : ' + team.map(function(a){return a.name}));
     var sum =  team.reduce(function(a, b) { return a + b.strength; }, 0);
     console.log( 'team total strngth : ' + sum);

@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-list no-lines>
-    <ion-item *ngFor="let player of players" (click)="goToDetails(player)">
+    <ion-item *ngFor="let player of players" (click)="goToDetails(player)" style="border-bottom: 1px solid #ebeef2;">
         <ion-avatar item-start>
             <img [src]="player.img || '../assets/empty_profile.png'">
           </ion-avatar>

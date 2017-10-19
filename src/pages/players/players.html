@@ -83,7 +83,7 @@
 <div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >
     <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">
         <div class="child">
-        <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
+        <img [src]="player2.img || default_img" class="radius avatar" >
         <div> {{player2.name}}</div>
       </div>
       </div>  

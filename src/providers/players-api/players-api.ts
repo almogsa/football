@@ -34,7 +34,7 @@ export class PlayersApiProvider {
      firebase.list(baseURL).subscribe(data=>{
       this.data=data;
     });
-    this.load();
+    this.loadPlayers();
    
    
     
@@ -56,25 +56,69 @@ export class PlayersApiProvider {
     
 
   }
+  addPlayer(player) {
+    player.index=0;
+    player.admin = false;
+    player.arrive = false;
+    let dbRef =  this.firebase.database.ref(baseURL);
+  //   let key = dbRef.push();
+    this.getLastFromList(dbRef,function(last){
+      dbRef.child(last).set(player);
+    })
+    
+  }
+   getLastFromList(ref, cb) {
+    ref.limitToLast(1).once("child_added", function (snapshot) {
+      cb(Number.parseInt(snapshot.key) + 1);
+    });
+  }
   resetPlayers(){
     this.loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
     this.loader.present();
     let playersRef = this.firebase.database.ref(baseURL);
-     playersRef.on('child_changed', function (snap) {
-       console.log('****CHILD CHANGED***');
-      });
+    //  playersRef.on('child_changed', function (snap) {
+    //    console.log('****CHILD CHANGED***');
+    //   });
+   return new Promise((resolve,reject) => {  
+    this.loadPlayers().then(players => {
+      this.data = players;
+      console.log('starting to reset players' +  players);
+      let field = 'arrive';
+      let value = false;
+      let players2Update =  this.bulkUpdate(players,field,value);
+         this.firebase.database.ref().update(players2Update).then(x => {
+          this.loader.dismiss();
+          console.log('finish reset players');
+          resolve(this.data);
+       });
+    }).catch(error =>{
+      reject("Error loading players " + error.code);
+    })
 
-     let field = 'arrive';
-     let value = false;
-     let players2Update =  this.bulkUpdate(this.data,field,value);
-     return  this.firebase.database.ref().update(players2Update).then(x => {
-      this.loader.dismiss();
-     });
-  //   let v =  this.firebase.database.ref().update(players2Update).then( x => {
-    //   console.log('finish update all players');
-    // });
+  //    playersRef.once("value", snapshot => {
+  //     this.data = snapshot.val();
+  //     console.log(snapshot.val());
+  //     let field = 'arrive';
+  //     let value = false;
+  //     let players2Update =  this.bulkUpdate(this.data,field,value);
+  //        this.firebase.database.ref().update(players2Update).then(x => {
+  //         this.loader.dismiss();
+  //         console.log('finish reset players');
+  //         resolve(this.data);
+  //      });
+  //  }, function (error) {
+  //     console.log("Error loading players " + error.code);
+  //     reject("Error loading players " + error.code);
+      
+  //  });
+  });
+
+   //this.firebase.list(baseURL)
+
+    
+ 
   }
   getPlayer(player: any): any {
     new Promise(resolve => {
@@ -92,32 +136,21 @@ export class PlayersApiProvider {
           
           }
 
-  load(){
+  loadPlayers():Promise<any>{
     
 
-       //    if(this.data){
-       //        return Promise.resolve(this.data);
-       //    }
-    
-           return new Promise(resolve => {
-          
-           this.data = this.firebase.list(baseURL).subscribe(data=>{
-            this.data=data;
-            
-            resolve(this.data);
-          });
-            
-              //  this.http.get('https://football-wednesday.firebaseio.com/teams-data.json').map(response => response.json())
-              //  .subscribe((data) => {
-              //       this.data = data;
-              //       let players = data["3dd50aaf-6b03-4497-b074-d81703f07ee8"].players;
-              //       resolve(players);
-              //   });
-  
-              //     resolve(this.data);
-    
-               });
-    
+           if(this.data){
+               return Promise.resolve(this.data);
+           }
+          return new Promise((resolve,reject) => {
+            let ref = this.firebase.database.ref(baseURL);
+            ref.once('value', snapshot => {
+                this.data=snapshot.val();
+                resolve(this.data);
+              }).catch(error => {
+                reject('failed to get data from firebase' + error);
+              });
+            })
            };
            getShoppingItems() {
             return this.firebase.list('baseURL');

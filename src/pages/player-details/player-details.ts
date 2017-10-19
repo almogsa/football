@@ -33,6 +33,10 @@ export class PlayerDetailsPage {
     console.log('Player ::: '+ JSON.stringify(player))
     this.players_api.updatePlayer(player,player);
   }
+  addNewPlayer(player){
+    console.log('Adding new player : '+ JSON.stringify(player))
+    this.players_api.addPlayer(player);
+  }
   
 
 }

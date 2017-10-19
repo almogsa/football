@@ -19,21 +19,22 @@
             <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>
           </ion-item>
     <ion-item>
-      <ion-label>Arrive</ion-label>
-      <ion-badge item-right>{{player?.arrive}}</ion-badge>
+      <ion-label>Phone</ion-label>
+      <ion-input  text-right [(ngModel)]="player.phone"></ion-input>
     </ion-item>
      <ion-item>
       <ion-label>Number</ion-label>
-      <ion-badge item-right>{{player?.number}}</ion-badge>
+      <ion-badge [hidden]="!player.index" item-right>{{player?.number}}</ion-badge>
+      <ion-input [hidden]="player.index" text-right [(ngModel)]="player.number"></ion-input>
     </ion-item>
      <ion-item>
       <ion-label>Strength 
           <ion-badge item-right>{{player?.strength}}</ion-badge>
       </ion-label>
         
-          <ion-range item-right [(ngModel)]="player.strength" min="0" max="10" step="0.2" pin="true" >
+          <ion-range item-right [(ngModel)]="player.strength" min="1" max="100" step="0.01" pin="true" >
               <ion-label range-left class="small-text">0</ion-label>
-              <ion-label range-right>10</ion-label>
+              <ion-label range-right>100</ion-label>
           </ion-range>
     
       
@@ -46,5 +47,7 @@
       <!-- <ion-text item-right>{{player?.img}}  [(ngModel)]="player.img"</ion-text> -->
     </ion-item>
   </ion-list>    
-  <button ion-button full (click)="updatePlayer(player)">Update</button>
+  <button *ngIf="player.index === 0 || player.index > 0" ion-button full (click)="updatePlayer(player)">Update</button>
+  <button *ngIf="player.index == undefined" ion-button full (click)="addNewPlayer(player)">Add New Player</button>
+
 </ion-content>

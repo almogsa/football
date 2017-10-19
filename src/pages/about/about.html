@@ -1,11 +1,18 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Line
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+    <div class="container" *ngFor="let team of allTeams" >
+        <div class="" *ngFor="let player of team"   >
+          <div class="child" >
+            <img [src]="player?.img || default_img" class="user-picture image" >
+            <div class="user-name"> {{player?.name}}</div>
+          </div>
+       </div>
+      </div>  
 </ion-content>

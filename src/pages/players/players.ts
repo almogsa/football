@@ -157,10 +157,10 @@ export class PlayersPage {
   
   resetPlayers(){
     
-    this.playaers_api.resetPlayers();
-    this.players.map( (x, i, ar) => ar[i].arrive = false);
-    this.refresh();
-    //this.arrivedPlayers.map( (x, i, ar) => ar[i].arrive = false);
+    // this.playaers_api.resetPlayers();
+    // this.players.map( (x, i, ar) => ar[i].arrive = false);
+    // this.refresh();
+    
 
   }
   updatePlayer(player,index){

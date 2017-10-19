@@ -29,8 +29,8 @@ export class HomePage {
           handler: () => {
             console.log('Agree clicked');
             this.playaers_api.resetPlayers().then(x => {
-              console.log('reset players successful');
-              this.playaers_api.load2();
+              console.log('reset players successful!!! : ' + x);
+         //     this.playaers_api.load2();
             })
           }
         }
