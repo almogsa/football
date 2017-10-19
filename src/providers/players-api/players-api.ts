@@ -139,9 +139,9 @@ export class PlayersApiProvider {
   loadPlayers():Promise<any>{
     
 
-           if(this.data){
-               return Promise.resolve(this.data);
-           }
+          //  if(this.data){
+          //      return Promise.resolve(this.data);
+          //  }
           return new Promise((resolve,reject) => {
             let ref = this.firebase.database.ref(baseURL);
             ref.once('value', snapshot => {
