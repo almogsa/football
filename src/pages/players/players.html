@@ -38,7 +38,7 @@
         </div> -->
         </div>
   
-  <div style="background: url('../assets/soccer_field.png') 0% 0% / 100% 100% no-repeat; height:  calc(100% - 120px); width: 100%;display:flex; border: 1px solid black;flex-direction:column;">
+  <div [style.height]="arrivedPlayers.length > 10 ? 'calc(100% - 108px)' : 'calc(100% - 55px)'"  class="players-main">
 
   
     <div class="first-player">
