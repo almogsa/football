@@ -1,6 +1,6 @@
 import { PlayerDetailsPage } from './../player-details/player-details';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
 /**
  * Generated class for the PlayersPage page.
@@ -148,7 +148,7 @@ export class PlayersPage {
     return sum;
   }
   eqAll(teams) {
-    var total = 0;
+   
     var that = this;
     teams.forEach(function (team, key) {
         team.eq = that.teamPower(team);

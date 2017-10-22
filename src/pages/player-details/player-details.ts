@@ -1,6 +1,6 @@
 import { PlayersApiProvider } from './../../providers/players-api/players-api';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the PlayerDetailsPage page.

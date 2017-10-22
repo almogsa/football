@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { LoadingController } from 'ionic-angular';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
 
 const teamID = 'teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8';
 const baseURL = teamID+'/players/';
@@ -75,7 +75,7 @@ export class PlayersApiProvider {
       content: "Please wait..."
     });
     this.loader.present();
-    let playersRef = this.firebase.database.ref(baseURL);
+   // let playersRef = this.firebase.database.ref(baseURL);
     //  playersRef.on('child_changed', function (snap) {
     //    console.log('****CHILD CHANGED***');
     //   });
