@@ -19,8 +19,6 @@ export class PlayersApiProvider {
   
   data:any;
   players: FirebaseListObservable<any[]>;
-  private _db: any;
-  private _playersRef: any;
   loader:any;
   
   constructor(public http: Http,public firebase : AngularFireDatabase,public loadingCtrl: LoadingController) {

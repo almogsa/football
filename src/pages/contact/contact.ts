@@ -14,7 +14,7 @@ players:any;
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad UsersPage');
-     this.playaers_api.load().then((res) => { 
+     this.playaers_api.loadPlayers().then((res) => { 
        this.players = res;
        console.log('response contacts' + res );
       

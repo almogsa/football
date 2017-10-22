@@ -142,7 +142,6 @@ export class AboutPage {
     return sum;
   }
   eqAll(teams) {
-    var total = 0;
     var that = this;
     teams.forEach(function (team, key) {
         team.eq = that.teamPower(team);
