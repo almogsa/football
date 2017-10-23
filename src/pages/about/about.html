@@ -7,12 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="container" *ngFor="let team of allTeams" >
-        <div class="" *ngFor="let player of team"   >
+    <div *ngIf="arrivedPlayers.length < 8" style="text-align:center">Not enough players to begin a match</div>
+    <div *ngIf="arrivedPlayers.length > 7">
+    <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">
+        <div style="flex:1" class="" *ngFor="let player of team"   >
           <div class="child" >
             <img [src]="player?.img || default_img" class="user-picture image" >
             <div class="user-name"> {{player?.name}}</div>
           </div>
        </div>
       </div>  
+    </div> 
 </ion-content>
