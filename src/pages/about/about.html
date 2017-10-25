@@ -11,11 +11,12 @@
     <div *ngIf="arrivedPlayers.length > 7">
     <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">
         <div style="flex:1" class="" *ngFor="let player of team"   >
-          <div class="child" >
+          <div class="child"  (click)="goToDetails(player)">
             <img [src]="player?.img || default_img" class="user-picture image" >
             <div class="user-name"> {{player?.name}}</div>
           </div>
        </div>
+       <ion-badge item-right>{{teamPower(team)}}</ion-badge>
       </div>  
     </div> 
 </ion-content>

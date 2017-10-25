@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { Events } from 'ionic-angular';
 
 const teamID = 'teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8';
 const baseURL = teamID+'/players/';
@@ -17,11 +18,11 @@ const baseURL = teamID+'/players/';
 export class PlayersApiProvider {
 
   
-  data:any;
+  data:any[];
   players: FirebaseListObservable<any[]>;
   loader:any;
   
-  constructor(public http: Http,public firebase : AngularFireDatabase,public loadingCtrl: LoadingController) {
+  constructor(public http: Http,public firebase : AngularFireDatabase,public loadingCtrl: LoadingController,public events: Events) {
     console.log('Hello PlayersApiProvider Provider');
    
     // this._db = firebase.database().ref('/'); // Get a firebase reference to the root this._todosRef = firebase.database().ref('todos'); // Get a firebase reference to the todos
@@ -48,11 +49,21 @@ export class PlayersApiProvider {
       content: "Please wait..."
     });
     this.loader.present();
-    this.firebase.object(baseURL + player.$key).update(config).then(x => {
+    this.firebase.object(baseURL + (player.$key || player.key)).update(config).then(x => {
       this.loader.dismiss();
-      console.log(' player updated: ' + x);});
+      this.events.publish('player:updated', player, Date.now());
+      console.log(' player updated: ' + x);})
+      .catch( x => console.log('error when updating user'));
+  }
+  removePlayer(player: any,config : any): void {
     
-
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    this.loader.present();
+    this.firebase.object(baseURL + (player.$key || player.key)).remove().then(x => {
+      this.loader.dismiss();
+      console.log(' player deleted: ' + x);});
   }
   addPlayer(player) {
     player.index=0;
@@ -120,9 +131,7 @@ export class PlayersApiProvider {
   }
   getPlayer(player: any): any {
     new Promise(resolve => {
-     let player2 = this.firebase.object(baseURL +  player.$key).subscribe(data=>{
-        console.log('P' + data);
-        console.log('P' + data);
+     let player2 = this.firebase.object(baseURL + ( player.$key || player.key)).subscribe(data=>{
         resolve(player2);
       });
      });
@@ -136,15 +145,16 @@ export class PlayersApiProvider {
 
   loadPlayers():Promise<any>{
     
-
+      
           //  if(this.data){
           //      return Promise.resolve(this.data);
           //  }
           return new Promise((resolve,reject) => {
             let ref = this.firebase.database.ref(baseURL);
             ref.once('value', snapshot => {
-                this.data=snapshot.val();
-                resolve(this.data);
+            let arr=  Object.entries(snapshot.val()).map(e => Object.assign(e[1],{key:e[0]}));
+             
+                resolve(arr);
               }).catch(error => {
                 reject('failed to get data from firebase' + error);
               });

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
+import { PlayerDetailsPage } from "../player-details/player-details";
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-about',
@@ -16,16 +18,21 @@ export class AboutPage {
   arrivedPlayers=[];
   penddingdPlayers=[];
   default_img = '../assets/empty_profile.png'
-  constructor(public navCtrl: NavController,public playaers_api: PlayersApiProvider) {
+  constructor(public navCtrl: NavController,public playaers_api: PlayersApiProvider,public events: Events) {
     // let playersRef = this.firebase.database.ref(baseURL);
     // playersRef.on('child_changed', function (snap) {
     //   console.log('****CHILD CHANGED***');
     //  });
+    events.subscribe('player:updated', (player, time) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('player:updated * * ', player, 'at', time);
+   //   this.ionViewDidEnter();
+    });
 
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad UsersPage');
-    this.playaers_api.load2().subscribe(data=>{
+    this.playaers_api.loadPlayers().then(data=>{
 
       console.log('Line Page get players load2' + data);
       this.players=data;
@@ -33,17 +40,19 @@ export class AboutPage {
     })
   }
   ionViewDidEnter() {
-    console.log('ionViewDidLoad UsersPage');
+    console.log('ionViewDidEnter UsersPage');
     this.playaers_api.loadPlayers().then(data=>{
       console.log('Line Page get players load2' + data);
       this.players=data;
       this.line();
     })
   }
+  goToDetails(player:any){
+    this.navCtrl.push(PlayerDetailsPage, {player});
+  }
   line(){
     
     this.arrivedPlayers =  this.players.filter(function(player){ return player.arrive === true});
-    debugger;
     if (this.arrivedPlayers.length < 8){
       return;
     }
@@ -59,8 +68,6 @@ export class AboutPage {
     console.log('teams : ' + teams);
     var hasRemainder = false;
     var that = this;
-    
-    
 
     if (remainder != 0) {
       if(missingPlayers > 0){
