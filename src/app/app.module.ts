@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PlayersPage } from '../pages/players/players';
 import { PlayerDetailsPage } from '../pages/player-details/player-details';
@@ -14,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PlayersApiProvider } from '../providers/players-api/players-api';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { SettingsPage } from "../pages/settings/settings";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOqpaVynbZgBnzZrLcnIFmorazfvUXLQc",
@@ -29,7 +29,7 @@ export const firebaseConfig = {
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
+    SettingsPage,
     TabsPage,
     PlayersPage,
     PlayerDetailsPage
@@ -48,7 +48,7 @@ export const firebaseConfig = {
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
+    SettingsPage,
     TabsPage,
     PlayersPage,
     PlayerDetailsPage

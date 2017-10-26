@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list *ngIf="!admin">
+    <ion-item>
+      <ion-label fixed>Username</ion-label>
+      <ion-input [(ngModel)]="user.name" type="text" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Password</ion-label>
+      <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button (click)="isAdmin(user)" color="primary" block>Sign In</button>
+    </div>
+  </ion-list>
+  <div *ngIf="admin">
+    <p>
+      <button ion-button full (click)="showConfirm()"> Reset Players </button>
+    </p>
+    <p>
+      <button ion-button full (click)="goToDetails({})"> Add New Player </button>
+    </p>
+  </div>
+</ion-content>

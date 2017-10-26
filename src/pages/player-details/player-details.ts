@@ -1,6 +1,7 @@
 import { PlayersApiProvider } from './../../providers/players-api/players-api';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { PlayersPage } from "../players/players";
 
 
 /**
@@ -32,7 +33,9 @@ export class PlayerDetailsPage {
   }
   updatePlayer(player){
     console.log('Player ::: '+ JSON.stringify(player))
-    this.players_api.updatePlayer(player,player);
+    this.players_api.updatePlayer(player,player).then(x => {
+      this.navCtrl.push(PlayersPage, {player});
+    });
    
   }
   addNewPlayer(player){
