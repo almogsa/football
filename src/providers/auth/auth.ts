@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { NavController } from 'ionic-angular';
 import { PlayersPage } from "../../pages/players/players";
@@ -16,22 +16,33 @@ import { Observable } from "rxjs/Observable";
 */
 @Injectable()
 export class AuthProvider {
-  user : Observable<firebase.User>
-  constructor(public http: Http,public afAuth : AngularFireAuth) {
+  user: Observable<firebase.User>
+  constructor(public http: Http, public afAuth: AngularFireAuth) {
     console.log('Hello AuthProvider Provider');
-  //  this.user = this.afAuth.authState;
-    
+    //  this.user = this.afAuth.authState;
+
   }
-  login(){
+  login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
-    then(() => {
-      console.log('Login Success');
-     // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
-    })
-    .catch(error => console.log('Login failed'));
+      then(() => {
+        console.log('Login Success');
+        // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
+      })
+      .catch(error => console.log('Login failed'));
   }
-  logout(){
-    this.afAuth.auth.signOut();
-  //  this.navCtrl.push(LoginPage);
+  logout() {
+    this.afAuth.auth.signOut().then(x => console.log('log out'));
+    //  this.navCtrl.push(LoginPage);
+  }
+
+  getAuth(): any {
+    return new Promise(resolve => {
+      this.afAuth.authState.take(1).subscribe(auth => {
+        if (!auth)
+          resolve(false);
+        else
+          resolve(true);
+      });
+    })
   }
 }

@@ -1,3 +1,5 @@
+import { LoginPage } from './../login/login';
+import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -11,7 +13,7 @@ import { PlayerDetailsPage } from "../player-details/player-details";
 export class SettingsPage {
   admin:boolean = false;
   user:any={};
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public  playaers_api : PlayersApiProvider) {
+  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public  playaers_api : PlayersApiProvider,public authService: AuthProvider) {
 
   }
   showConfirm() {
@@ -43,10 +45,20 @@ export class SettingsPage {
     this.navCtrl.push(PlayerDetailsPage, {player});
   }
   isAdmin(user){
-    if(user.name && user.name ==='admin' && user.password==='admin'){
-      this.admin=true;
-    }
+    this.authService.getAuth().then(isAdmin => {
+      this.admin=isAdmin;
+    })
+
+    // if(user.name && user.name ==='admin' && user.password==='admin'){
+    //   this.admin=true;
+    // }
  
+  }
+  logOut() {
+    return this.authService.logout();
+  }
+  goToLogin(){
+    this.navCtrl.push(LoginPage);
   }
 
 }

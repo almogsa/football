@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <ion-list *ngIf="!admin">
+  <ion-list *ngIf="false">
     <ion-item>
       <ion-label fixed>Username</ion-label>
       <ion-input [(ngModel)]="user.name" type="text" value=""></ion-input>
@@ -26,5 +26,10 @@
     <p>
       <button ion-button full (click)="goToDetails({})"> Add New Player </button>
     </p>
+    <p>
+      <button ion-button full (click)="logOut()"> logOut </button>
+    </p>
   </div>
+
+  <div  *ngIf="!admin" (click)="goToLogin()">You Dont have a permition to view this page</div>
 </ion-content>

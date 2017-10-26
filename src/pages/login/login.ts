@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -15,15 +16,23 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService:AuthProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-  loginUser(){
-    this.authService.login();
+  loginUser() {
+    return this.authService.login();
   }
+  logoutUser() {
+    return this.authService.logout();
+  }
+  skipLogin() {
+    this.navCtrl.push(TabsPage);
 
+    //store the data in the key value format
+    localStorage.setItem('skipUser', 'true');
+  }
 }
