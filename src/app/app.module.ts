@@ -1,3 +1,5 @@
+import { LoginPage } from './../pages/login/login';
+import { AuthProvider } from './../providers/auth/auth';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -14,6 +16,7 @@ import { PlayersApiProvider } from '../providers/players-api/players-api';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { SettingsPage } from "../pages/settings/settings";
+import { AngularFireAuth } from "angularfire2/auth";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOqpaVynbZgBnzZrLcnIFmorazfvUXLQc",
@@ -32,6 +35,7 @@ export const firebaseConfig = {
     SettingsPage,
     TabsPage,
     PlayersPage,
+    LoginPage,
     PlayerDetailsPage
    
   ],
@@ -51,6 +55,7 @@ export const firebaseConfig = {
     SettingsPage,
     TabsPage,
     PlayersPage,
+    LoginPage,
     PlayerDetailsPage
 
     
@@ -60,6 +65,10 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PlayersApiProvider,
+    AuthProvider,
+    AngularFireAuth,
+    
+    
     
   ]
 })
