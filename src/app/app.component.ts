@@ -19,6 +19,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(auth => {
+      console.log('Auth',auth);
       if (!auth) {
         if (localStorage.getItem('skipUser') === 'true') {
           this.rootPage = TabsPage;

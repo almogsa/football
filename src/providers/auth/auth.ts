@@ -31,7 +31,7 @@ export class AuthProvider {
       .catch(error => console.log('Login failed'));
   }
   logout() {
-    this.afAuth.auth.signOut().then(x => console.log('log out'));
+   return  this.afAuth.auth.signOut();
     //  this.navCtrl.push(LoginPage);
   }
 

@@ -16,6 +16,10 @@ export class SettingsPage {
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,public  playaers_api : PlayersApiProvider,public authService: AuthProvider) {
 
   }
+  ionViewDidEnter(){
+    console.log('settings did enter')
+    this.isAdmin();
+  }
   showConfirm() {
     let confirm = this.alertCtrl.create({
       title: 'Reset Players',
@@ -44,7 +48,7 @@ export class SettingsPage {
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});
   }
-  isAdmin(user){
+  isAdmin(){
     this.authService.getAuth().then(isAdmin => {
       this.admin=isAdmin;
     })
@@ -55,7 +59,9 @@ export class SettingsPage {
  
   }
   logOut() {
-    return this.authService.logout();
+    localStorage.setItem('skipUser', 'false');
+    
+    this.authService.logout().then(x => console.log('log out from settings page'));
   }
   goToLogin(){
     this.navCtrl.push(LoginPage);

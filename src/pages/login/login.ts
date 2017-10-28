@@ -27,7 +27,12 @@ export class LoginPage {
     return this.authService.login();
   }
   logoutUser() {
-    return this.authService.logout();
+    localStorage.setItem('skipUser', 'false');
+    
+    this.authService.logout();
+   
+
+    
   }
   skipLogin() {
     this.navCtrl.push(TabsPage);
