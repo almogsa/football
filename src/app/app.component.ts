@@ -28,8 +28,10 @@ export class MyApp {
           this.rootPage = LoginPage;
         }
       }
-      else
+      else{
+        alert('Logged with google')
         this.rootPage = TabsPage;
+      }
     });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

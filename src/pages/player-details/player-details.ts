@@ -34,7 +34,7 @@ export class PlayerDetailsPage {
   updatePlayer(player){
     console.log('Player ::: '+ JSON.stringify(player))
     this.players_api.updatePlayer(player,player).then(x => {
-      this.navCtrl.push(PlayersPage, {player});
+      this.navCtrl.pop();
     });
    
   }
