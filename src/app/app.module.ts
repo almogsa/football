@@ -17,6 +17,8 @@ import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { SettingsPage } from "../pages/settings/settings";
 import { AngularFireAuth } from "angularfire2/auth";
+import { GooglePlus } from '@ionic-native/google-plus';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOqpaVynbZgBnzZrLcnIFmorazfvUXLQc",
@@ -67,6 +69,7 @@ export const firebaseConfig = {
     PlayersApiProvider,
     AuthProvider,
     AngularFireAuth,
+    GooglePlus
     
     
     
