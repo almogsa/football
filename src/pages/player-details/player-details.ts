@@ -1,7 +1,7 @@
 import { PlayersApiProvider } from './../../providers/players-api/players-api';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { PlayersPage } from "../players/players";
+
 
 
 /**

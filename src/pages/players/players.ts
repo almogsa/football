@@ -1,8 +1,7 @@
-import { AuthProvider } from './../../providers/auth/auth';
-import { PlayerDetailsPage } from './../player-details/player-details';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
+import { PlayerDetailsPage } from "../player-details/player-details";
 /**
  * Generated class for the PlayersPage page.
  *

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
+import 'rxjs/add/operator/map';
 import * as firebase from 'firebase/app';
-import { NavController } from 'ionic-angular';
-import { PlayersPage } from "../../pages/players/players";
-import { LoginPage } from "../../pages/login/login";
-import { Observable } from "rxjs/Observable";
+import { PlayersPage } from '../../pages/players/players';
 
 /*
   Generated class for the AuthProvider provider.
@@ -16,19 +13,28 @@ import { Observable } from "rxjs/Observable";
 */
 @Injectable()
 export class AuthProvider {
-  user: Observable<firebase.User>
+  
   constructor(public http: Http, public afAuth: AngularFireAuth) {
     console.log('Hello AuthProvider Provider');
     //  this.user = this.afAuth.authState;
 
   }
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
-      then(() => {
-        console.log('Login Success');
-        // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
-      })
-      .catch(error => console.log('Login failed'));
+
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    firebase.auth().getRedirectResult().then(function (authData) {
+      this.navCtrl.push(PlayersPage);
+      console.log('Login Success');
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
+    //   then(() => {
+    //     console.log('Login Success');
+    //     // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
+    //   })
+    //   .catch(error => console.log('Login failed'));
   }
   logout() {
    return  this.afAuth.auth.signOut();
