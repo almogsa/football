@@ -1,50 +1,48 @@
-import { Platform } from 'ionic-angular';
-import { GooglePlus } from '@ionic-native/google-plus';
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {Platform} from 'ionic-angular';
+import {GooglePlus} from '@ionic-native/google-plus';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/map';
 import * as firebase from 'firebase/app';
-import { PlayersPage } from '../../pages/players/players';
+import {PlayersPage} from '../../pages/players/players';
 
 /*
-  Generated class for the AuthProvider provider.
+ Generated class for the AuthProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+ See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+ for more info on providers and Angular DI.
+ */
 @Injectable()
 export class AuthProvider {
-  
-  constructor(public http: Http, public afAuth: AngularFireAuth,public googlePlus:GooglePlus,public platform : Platform) {
+
+  constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform) {
     console.log('Hello AuthProvider Provider');
     //  this.user = this.afAuth.authState;
 
   }
+
   login(): void {
-    if (this.platform.is('cordova')){
-
-    
-    this.googlePlus.login({
-      'webClientId': '397610494763-eu2gbde4hreoaitdsr6bg01s7up8ehqo.apps.googleusercontent.com',
-      'offline': true
-    }).then( res => {
-      firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-        .then( success => {
-          console.log("Firebase success: " + JSON.stringify(success));
-        })
-        .catch( error => console.log("Firebase failure: " + JSON.stringify(error)));
+    if (this.platform.is('cordova')) {
+      this.googlePlus.login({
+        'webClientId': '397610494763-eu2gbde4hreoaitdsr6bg01s7up8ehqo.apps.googleusercontent.com',
+        'offline': true
+      }).then(res => {
+        firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
+          .then(success => {
+            console.log("Firebase success: " + JSON.stringify(success));
+          })
+          .catch(error => console.log("Firebase failure: " + JSON.stringify(error)));
       }).catch(err => console.error("Error: ", err));
-    } else{
+    } else {
 
-       this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
-      then(() => {
+      this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
         console.log('Login Success');
-        // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
       })
-      .catch(error => console.log('Login failed'));
+        .catch(error => console.log('Login failed'));
     }
   }
+
   login2() {
 
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
@@ -58,12 +56,13 @@ export class AuthProvider {
     // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
     //   then(() => {
     //     console.log('Login Success');
-    //     // this.navCtrl.push(PlayersPage); // provider can't import nav provider 
+    //     // this.navCtrl.push(PlayersPage); // provider can't import nav provider
     //   })
     //   .catch(error => console.log('Login failed'));
   }
+
   logout() {
-   return  this.afAuth.auth.signOut();
+    return this.afAuth.auth.signOut();
     //  this.navCtrl.push(LoginPage);
   }
 

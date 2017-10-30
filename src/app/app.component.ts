@@ -14,8 +14,6 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(auth => {
-      console.log('Auth', auth);
-      alert(JSON.stringify(auth))
       if (!auth) {
         if (localStorage.getItem('skipUser') === 'true') {
           this.rootPage = TabsPage;
@@ -25,7 +23,6 @@ export class MyApp {
         }
       }
       else {
-        alert('Logged with google')
         this.rootPage = TabsPage;
       }
     });
