@@ -47,6 +47,17 @@ export class PlayersApiProvider {
   handleData() {
     console.log('handle data');
   }
+  checkIfUserExists(authData) {
+    return this.firebase.database.ref(baseURL)
+      .child(authData.uid)
+      .once('value')
+      .then(dataSnapshot => {
+        return Promise.resolve({
+          authData,
+          userExists: dataSnapshot.exists(),
+        });
+      });
+  }
 
   updatePlayer(player: any, config: any): Promise<any> {
 
@@ -55,16 +66,17 @@ export class PlayersApiProvider {
     });
     this.loader.present();
     //this.db_list.update(player.$key,player); update by list
-   return new Promise(resolve => { this.firebase.object(baseURL + (player.$key || player.key)).update(config).then(x => {
-      this.loader.dismiss();
-      this.events.publish('player:updated', player, Date.now());
-      console.log(' player updated: ' + x);
-      resolve(player);
-    })
+    return new Promise(resolve => {
+      this.firebase.object(baseURL + (player.$key || player.key)).update(config).then(x => {
+        this.loader.dismiss();
+        this.events.publish('player:updated', player, Date.now());
+        console.log(' player updated: ' + x);
+        resolve(player);
+      })
       .catch(x => console.log('error when updating user'));
-  });
+    });
   }
-  removePlayer(player: any, config: any): void {
+  removePlayer(player: any): void {
 
     this.loader = this.loadingCtrl.create({
       content: "Please wait..."
@@ -75,6 +87,24 @@ export class PlayersApiProvider {
       this.loader.dismiss();
       console.log(' player deleted: ' + x);
     });
+  }
+
+
+  createPlayerFromGoogle(auth) {
+    let player = {
+      uid: auth.uid,
+      admin: false,
+      arrive: false,
+      index: 0,
+      strength:50,
+      name: auth.displayName,
+      email: auth.email,
+      img: auth.photoURL,
+      phone: auth.phoneNumber
+
+    }
+
+    this.firebase.object(`${baseURL}${player.uid}`).set(player);
   }
   addPlayer(player) {
     player.index = 0;
@@ -90,6 +120,9 @@ export class PlayersApiProvider {
     })
 
   }
+
+
+
   getLastFromList(ref, cb) {
     ref.limitToLast(1).once("child_added", function (snapshot) {
       cb(Number.parseInt(snapshot.key) + 1);
@@ -119,13 +152,13 @@ export class PlayersApiProvider {
       }).catch(error => {
         reject("Error loading players " + error.code);
       })
-   
+
     });
 
   }
   getPlayer(player: any): any {
     new Promise(resolve => {
-      let player2 = this.firebase.object(baseURL + (player.$key || player.key)).subscribe(data => {
+      let player2 = this.firebase.object(baseURL + (player.$key || player.key)).take(1).subscribe(data => {
         resolve(player2);
       });
     });
@@ -138,17 +171,17 @@ export class PlayersApiProvider {
   }
 
   loadPlayers(): Promise<any> {
-     //  if(this.data){
+    //  if(this.data){
     //      return Promise.resolve(this.data);
     //  }
     return new Promise((resolve, reject) => {
-    this.db_list.take(1).subscribe(players =>{
-      resolve(players);
-      this.data=players;
-      console.log('players:', players);
+      this.db_list.take(1).subscribe(players => {
+        resolve(players);
+        this.data = players;
+        console.log('players:', players);
 
+      })
     })
-  })
   }
   // loadPlayers2(): Promise<any> {
 
@@ -157,7 +190,7 @@ export class PlayersApiProvider {
   //   //      return Promise.resolve(this.data);
   //   //  }
   //   return new Promise((resolve, reject) => {
-      
+
   //     let ref = this.firebase.database.ref(baseURL);
   //     ref.once('value', snapshot => {
   //       let arr = Object.entries(snapshot.val()).map(e => Object.assign(e[1], { key: e[0] }));

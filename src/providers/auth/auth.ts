@@ -66,6 +66,9 @@ export class AuthProvider {
     //  this.navCtrl.push(LoginPage);
   }
 
+  checkPlayerExists(){
+  
+  }
   getAuth(): any {
     return new Promise(resolve => {
       this.afAuth.authState.take(1).subscribe(auth => {

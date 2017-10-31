@@ -1,3 +1,4 @@
+import { PlayersApiProvider } from './../providers/players-api/players-api';
 import { TabsPage } from './../pages/tabs/tabs';
 import { LoginPage } from './../pages/login/login';
 import { Component } from '@angular/core';
@@ -12,18 +13,34 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   rootPage: any = TabsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth,private players_api:PlayersApiProvider) {
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
         if (localStorage.getItem('skipUser') === 'true') {
           this.rootPage = TabsPage;
         }
         else {
+      
           this.rootPage = LoginPage;
         }
       }
       else {
-        this.rootPage = TabsPage;
+        /// create a user 
+        this.players_api.checkIfUserExists(auth)
+        .then(({authData, userExists}) => {
+          if (userExists) {
+            // update user
+          } else {
+           
+            this.players_api.createPlayerFromGoogle(auth)
+            // go create a user
+          }
+          this.rootPage = TabsPage;
+        })
+        .catch(err => {
+          console.warn('Error signing in.', err);
+        });
+       
       }
     });
     platform.ready().then(() => {

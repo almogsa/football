@@ -49,5 +49,7 @@
   </ion-list>    
   <button *ngIf="player.index === 0 || player.index > 0" ion-button full (click)="updatePlayer(player)">Update</button>
   <button *ngIf="player.index == undefined" ion-button full (click)="addNewPlayer(player)">Add New Player</button>
+  <button *ngIf="player.index === 0 || player.index > 0"  ion-button block color="danger"  (click)="deletePlayer(player)">Delete Player</button>
+
 
 </ion-content>
