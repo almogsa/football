@@ -1,10 +1,13 @@
+
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { LoadingController } from 'ionic-angular';
+import {App} from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database'
 import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/take';
+import { LoginPage } from "../../pages/login/login";
 
 const teamID = 'teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8';
 const baseURL = teamID + '/players/';
@@ -26,7 +29,7 @@ export class PlayersApiProvider {
   db_list: FirebaseListObservable<any[]>  // list return an array of values
   db_object: FirebaseObjectObservable<any>;
 
-  constructor(public http: Http, public firebase: AngularFireDatabase, public loadingCtrl: LoadingController, public events: Events) {
+  constructor(public http: Http, public firebase: AngularFireDatabase, public loadingCtrl: LoadingController, public events: Events,public app: App) {
     console.log('Hello PlayersApiProvider Provider');
     this.db_list = firebase.list(baseURL);  // list return an array of values
     this.db_object = firebase.object(baseURL + '/key');
@@ -85,6 +88,8 @@ export class PlayersApiProvider {
     //this.firebase.list(baseURL).remove(id);
     this.firebase.object(baseURL + (player.$key || player.key)).remove().then(x => {
       this.loader.dismiss();
+      localStorage.setItem('skipUser', 'false');
+      this.app.getActiveNav().setRoot(LoginPage); // can't  inject NavController in provider
       console.log(' player deleted: ' + x);
     });
   }
@@ -99,7 +104,7 @@ export class PlayersApiProvider {
       strength:50,
       name: auth.displayName,
       email: auth.email,
-      img: auth.photoURL,
+      img: auth.providerData[0].photoURL,
       phone: auth.phoneNumber
 
     }

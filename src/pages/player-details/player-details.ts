@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { PlayersApiProvider } from './../../providers/players-api/players-api';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -18,7 +19,7 @@ import { NavController, NavParams } from 'ionic-angular';
 export class PlayerDetailsPage {
 
   player:any={};
-  constructor(public navCtrl: NavController, public navParams: NavParams , public players_api : PlayersApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , public players_api : PlayersApiProvider,public auth : AuthProvider) {
     this.player = {};
    // this.player = this.navParams.data;
   }
@@ -44,7 +45,10 @@ export class PlayerDetailsPage {
   }
   deletePlayer(player){
     console.log('deleting  player : '+ JSON.stringify(player))
-    this.players_api.removePlayer(player);
+    this.auth.logout().then(x =>{
+      this.players_api.removePlayer(player);
+    })
+    
   }
   
 

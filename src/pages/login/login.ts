@@ -28,10 +28,7 @@ export class LoginPage {
   }
   logoutUser() {
     localStorage.setItem('skipUser', 'false');
-    
     this.authService.logout();
-   
-
     
   }
   skipLogin() {
