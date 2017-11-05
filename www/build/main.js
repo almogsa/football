@@ -904,9 +904,9 @@ var PlayersApiProvider = (function () {
         var batch = {};
         // Using a ES6 promise here, use a library or polyfil for compatibility
         // using Object.keys will allow us to iterate over an array or object
-        Object.keys(ref).forEach(function (r) {
+        ref.forEach(function (r) {
             // get the push id from the child reference, no server trip is made here
-            var pushId = baseURL + r + '/' + field;
+            var pushId = baseURL + r.$key + '/' + field;
             // get the value from the collection
             var itemValue = value;
             // using the pushId, assign the value to the bulk update object
