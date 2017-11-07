@@ -25272,6 +25272,23 @@ page-about .avatar {
   box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0, 0, 0, 0.2);
 }
 
+page-login .cover {
+  background: url("../assets/cover_new.png") 0% 0%/100% 100% no-repeat;
+}
+
+page-player-details .radius {
+  border-radius: 50%;
+}
+
+page-player-details .avatar {
+  height: 27px;
+  width: 30px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2); */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0, 0, 0, 0.2);
+}
+
 page-players .players-main {
   background: url("../assets/soccer_field.png") 0% 0%/100% 100% no-repeat;
   width: 100%;

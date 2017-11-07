@@ -225,10 +225,8 @@ export class PlayersApiProvider {
    ref.forEach(function (r) {
       // get the push id from the child reference, no server trip is made here
       var pushId = baseURL + r.$key + '/' + field;
-      // get the value from the collection
-      var itemValue = value;
       // using the pushId, assign the value to the bulk update object
-      batch[pushId] = itemValue;
+      batch[pushId] = value;
     });
     return batch;
 

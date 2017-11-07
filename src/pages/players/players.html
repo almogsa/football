@@ -19,7 +19,7 @@
 
 <ion-content>
 
-    <div class=" bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">
+    <div class="bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">
         <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  >
             <div class="child" (click)="goToDetails(player2)">
             <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
