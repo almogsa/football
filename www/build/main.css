@@ -25273,7 +25273,8 @@ page-about .avatar {
 }
 
 page-login .cover {
-  background: url("../assets/cover_new.png") 0% 0%/100% 100% no-repeat;
+  background: url("../assets/cover_new.png") 0 50%/100% 50% no-repeat;
+  background-color: black;
 }
 
 page-player-details .radius {
