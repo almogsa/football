@@ -10,6 +10,7 @@ import 'rxjs/add/operator/take';
 import { LoginPage } from "../../pages/login/login";
 
 const teamID = 'teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8';
+const baseURL2 = 'teams-data';
 const baseURL = teamID + '/players/';
 
 /*
@@ -27,21 +28,20 @@ export class PlayersApiProvider {
   players: FirebaseListObservable<any[]>;
   loader: any;
   db_list: FirebaseListObservable<any[]>  // list return an array of values
+  db_listTeams: FirebaseListObservable<any[]>  // list return an array of values
+
   db_object: FirebaseObjectObservable<any>;
 
   constructor(public http: Http, public firebase: AngularFireDatabase, public loadingCtrl: LoadingController, public events: Events,public app: App) {
     console.log('Hello PlayersApiProvider Provider');
     this.db_list = firebase.list(baseURL);  // list return an array of values
+    this.db_listTeams = firebase.list('teams');  // list return an array of values
     this.db_object = firebase.object(baseURL + '/key');
-    // this._db = firebase.database().ref('/'); // Get a firebase reference to the root this._todosRef = firebase.database().ref('todos'); // Get a firebase reference to the todos
-    // console.log('DB : '+ this._db);
-    // this._playersRef = firebase.database().ref('teams-data/3dd50aaf-6b03-4497-b074-d81703f07ee8'); // Get a firebase reference to the todos
-    // console.log('DB2 : '+ this._playersRef);
-    // this._playersRef.on('child_added', this.handleData, this); // ***ADD THIS LINE***
-    firebase.list(baseURL).subscribe(data => {
+
+   /* firebase.list(baseURL).subscribe(data => {
       this.data = data;
-    });
-    this.loadPlayers();
+    });*/
+   // this.loadPlayers();
 
 
 
@@ -78,6 +78,18 @@ export class PlayersApiProvider {
       })
       .catch(x => console.log('error when updating user'));
     });
+  }
+  getTeamsData(): Promise<any> {
+    //  if(this.data){
+    //      return Promise.resolve(this.data);
+    //  }
+    return new Promise((resolve, reject) => {
+      this.db_listTeams.take(1).subscribe(teams => {
+        resolve(teams);
+        console.log('teams:', teams);
+
+      })
+    })
   }
   removePlayer(player: any): void {
 
@@ -169,9 +181,9 @@ export class PlayersApiProvider {
     });
   }
 
-  load2() {
+  load2(teamId) {
 
-    return this.firebase.list(baseURL);
+    return this.firebase.list(`${baseURL2}/${teamId}/players`);
 
   }
 

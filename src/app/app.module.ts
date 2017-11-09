@@ -18,6 +18,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { SettingsPage } from "../pages/settings/settings";
 import { AngularFireAuth } from "angularfire2/auth";
 import { GooglePlus } from '@ionic-native/google-plus';
+import {TeamsPage} from '../pages/teams/teams';
 
 
 export const firebaseConfig = {
@@ -38,7 +39,8 @@ export const firebaseConfig = {
     TabsPage,
     PlayersPage,
     LoginPage,
-    PlayerDetailsPage
+    PlayerDetailsPage,
+    TeamsPage
 
   ],
   imports: [
@@ -58,7 +60,8 @@ export const firebaseConfig = {
     TabsPage,
     PlayersPage,
     LoginPage,
-    PlayerDetailsPage
+    PlayerDetailsPage,
+    TeamsPage
 
 
   ],

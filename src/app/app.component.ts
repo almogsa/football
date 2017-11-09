@@ -6,41 +6,42 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {TeamsPage} from "../pages/teams/teams";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = TeamsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth,private players_api:PlayersApiProvider) {
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
         if (localStorage.getItem('skipUser') === 'true') {
-          this.rootPage = TabsPage;
+          this.rootPage = TeamsPage;
         }
         else {
-      
+
           this.rootPage = LoginPage;
         }
       }
       else {
-        /// create a user 
+        /// create a user
         this.players_api.checkIfUserExists(auth)
         .then(({authData, userExists}) => {
           if (userExists) {
             // update user
           } else {
-           
+
             this.players_api.createPlayerFromGoogle(auth)
             // go create a user
           }
-          this.rootPage = TabsPage;
+          this.rootPage = TeamsPage;
         })
         .catch(err => {
           console.warn('Error signing in.', err);
         });
-       
+
       }
     });
     platform.ready().then(() => {
