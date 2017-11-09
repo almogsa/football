@@ -25,7 +25,7 @@ export class PlayersPage {
   penddingdPlayers=[];
   default_img = '../assets/empty_profile.png'
   constructor(public navCtrl: NavController, public navParams: NavParams, public playaers_api: PlayersApiProvider) {
-    let team = JSON.parse(localStorage.getItem('groupUser'));
+    let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
     if (Object.keys(this.navParams.data.length === 0)) { // empty object
       this.team = team;
     }else{

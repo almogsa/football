@@ -28,6 +28,7 @@ export class LoginPage {
   }
   logoutUser() {
     localStorage.setItem('skipUser', 'false');
+    localStorage.removeItem('userGroup');
 
     this.authService.logout();
 
@@ -37,6 +38,6 @@ export class LoginPage {
 
     //store the data in the key value format
     localStorage.setItem('skipUser', 'true');
-    localStorage.setItem('groupUser', '3dd50aaf-6b03-4497-b074-d81703f07ee8');
+
   }
 }

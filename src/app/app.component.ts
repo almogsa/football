@@ -18,7 +18,12 @@ export class MyApp {
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
         if (localStorage.getItem('skipUser') === 'true') {
-          this.rootPage = TeamsPage;
+          let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+          if (team && team.id) {
+            this.rootPage = TabsPage;
+          }else {
+            this.rootPage = TeamsPage;
+          }
         }
         else {
 
@@ -36,7 +41,14 @@ export class MyApp {
             this.players_api.createPlayerFromGoogle(auth)
             // go create a user
           }
-          this.rootPage = TeamsPage;
+          //let team = JSON.parse(localStorage.getItem('groupUser') )
+          let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+          if (team && team.id) {
+            this.rootPage = TabsPage;
+          }else {
+            this.rootPage = TeamsPage;
+          }
+
         })
         .catch(err => {
           console.warn('Error signing in.', err);
