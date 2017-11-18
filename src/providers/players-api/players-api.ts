@@ -37,6 +37,7 @@ export class PlayersApiProvider {
     this.db_list = firebase.list(baseURL);  // list return an array of values
     this.db_listTeams = firebase.list('teams');  // list return an array of values
     this.db_object = firebase.object(baseURL + '/key');
+    
 
    /* firebase.list(baseURL).subscribe(data => {
       this.data = data;
@@ -51,7 +52,7 @@ export class PlayersApiProvider {
     console.log('handle data');
   }
   checkIfUserExists(authData) {
-    return this.firebase.database.ref(baseURL)
+    return this.firebase.database.ref(`${baseURL2}/${this.getCurrentTeam().id}/players`)
       .child(authData.uid)
       .once('value')
       .then(dataSnapshot => {
@@ -70,7 +71,8 @@ export class PlayersApiProvider {
     this.loader.present();
     //this.db_list.update(player.$key,player); update by list
     return new Promise(resolve => {
-      this.firebase.object(baseURL + (player.$key || player.key)).update(config).then(x => {
+      let base = `${baseURL2}/${this.getCurrentTeam().id}/players/`;
+      this.firebase.object(base + (player.$key || player.key)).update(config).then(x => {
         this.loader.dismiss();
         this.events.publish('player:updated', player, Date.now());
         console.log(' player updated: ' + x);
@@ -98,7 +100,8 @@ export class PlayersApiProvider {
     });
     this.loader.present();
     //this.firebase.list(baseURL).remove(id);
-    this.firebase.object(baseURL + (player.$key || player.key)).remove().then(x => {
+    let base = `${baseURL2}/${this.getCurrentTeam().id}/players/`;
+    this.firebase.object(base + (player.$key || player.key)).remove().then(x => {
       this.loader.dismiss();
       localStorage.setItem('skipUser', 'false');
       this.app.getActiveNav().setRoot(LoginPage); // can't  inject NavController in provider
@@ -120,21 +123,37 @@ export class PlayersApiProvider {
       phone: auth.phoneNumber
 
     }
-
-    this.firebase.object(`${baseURL}${player.uid}`).set(player);
+    let base = `${baseURL2}/${this.getCurrentTeam().id}/players`;
+    this.firebase.object(`${base}/${player.uid}`).set(player);
   }
-  addPlayer(player) {
+  addPlayer(player): Promise<any> {
     player.index = 0;
     player.admin = false;
     player.arrive = false;
-
-    let dbRef = this.firebase.database.ref(baseURL);
-    //   let key = dbRef.push();
-    this.getLastFromList(dbRef, (last) => {
-      //  dbRef.child(last).set(player);
-      this.db_list.update(last.toString(), player);
-
+    let base = `${baseURL2}/${this.getCurrentTeam().id}/players`;
+    let dbRef = this.firebase.database.ref(base);
+    return new Promise(resolve =>{
+  
+    let key = dbRef.push().then(x => {
+     
+      player.uid= x.key;
+    
+        this.firebase.object(`${base}/${player.uid}`).set(player).then(data => {
+          resolve();
+        })
+      })
+  
     })
+   
+   
+    
+  
+     
+   
+    // this.getLastFromList(dbRef, (last) => {
+    //   this.db_list.update(last.toString(), player);
+
+    // })
 
   }
 
@@ -160,7 +179,7 @@ export class PlayersApiProvider {
         console.log('starting to reset players' + players);
         let field = 'arrive';
         let value = false;
-        let players2Update = this.bulkUpdate(players, field, value);
+        let players2Update = this.bulkUpdate(players, field, value,this.getCurrentTeam().id);
         this.firebase.database.ref().update(players2Update).then(x => {
           this.loader.dismiss();
           console.log('finish reset players');
@@ -175,15 +194,16 @@ export class PlayersApiProvider {
   }
   getPlayer(player: any): any {
     new Promise(resolve => {
-      let player2 = this.firebase.object(baseURL + (player.$key || player.key)).take(1).subscribe(data => {
+      let base = `${baseURL2}/${this.getCurrentTeam().id}/players/`;
+      let player2 = this.firebase.object(base + (player.$key || player.key)).take(1).subscribe(data => {
         resolve(player2);
       });
     });
   }
 
-  load2(teamId) {
-
-    return this.firebase.list(`${baseURL2}/${teamId}/players`);
+  load2(teamd) {
+    let base = `${baseURL2}/${this.getCurrentTeam().id}/players`;
+    return this.firebase.list(base);
 
   }
 
@@ -191,8 +211,10 @@ export class PlayersApiProvider {
     //  if(this.data){
     //      return Promise.resolve(this.data);
     //  }
+    let base = `${baseURL2}/${this.getCurrentTeam().id}/players`;
     return new Promise((resolve, reject) => {
-      this.db_list.take(1).subscribe(players => {
+      this.firebase.list(base).take(1).subscribe(players => {
+     //   this.db_list.take(1).subscribe(players => {
         resolve(players);
         this.data = players;
         console.log('players:', players);
@@ -218,6 +240,11 @@ export class PlayersApiProvider {
   //     });
   //   })
   // };
+
+  getCurrentTeam(){
+    let team = JSON.parse(localStorage.getItem('groupUser'));
+    return team;
+  }
   getShoppingItems() {
     return this.firebase.list(baseURL);
   }
@@ -229,14 +256,16 @@ export class PlayersApiProvider {
   removeItem(id) {
     this.firebase.list(baseURL).remove(id);
   }
-  bulkUpdate(ref, field, value) {
+  bulkUpdate(ref, field, value,teamId) {
     // object to hold the bulk update
     var batch = {};
     // Using a ES6 promise here, use a library or polyfil for compatibility
     // using Object.keys will allow us to iterate over an array or object
    ref.forEach(function (r) {
       // get the push id from the child reference, no server trip is made here
-      var pushId = baseURL + r.$key + '/' + field;
+     
+     let base = `${baseURL2}/${teamId}/players/`;
+      var pushId = base + r.$key + '/' + field;
       // using the pushId, assign the value to the bulk update object
       batch[pushId] = value;
     });

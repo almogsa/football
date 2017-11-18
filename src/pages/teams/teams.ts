@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
-import {PlayersApiProvider} from "../../providers/players-api/players-api";
+import {LoadingController, NavController} from 'ionic-angular';
+import {PlayersApiProvider} from '../../providers/players-api/players-api';
 import {TabsPage} from "../tabs/tabs";
 
 /**
@@ -24,7 +24,7 @@ export class TeamsPage {
 
   constructor(private loadingController: LoadingController,
               private nav: NavController,
-              private navParams: NavParams,
+             
               private playersApi: PlayersApiProvider) { }
 
   ionViewDidLoad() {
@@ -53,7 +53,10 @@ export class TeamsPage {
 
   itemTapped($event, team){
     localStorage.setItem('groupUser',JSON.stringify(team));
-    this.nav.push(TabsPage, team);
+    this.nav.popToRoot().then(x => {
+      this.nav.push(TabsPage, team);
+    });
+   // this.nav.setRoot(TabsPage, team);
   }
 
   updateTeams(){

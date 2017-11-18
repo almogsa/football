@@ -34,11 +34,7 @@ export class PlayersPage {
 
 
     console.log('choosen team: '+ this.team)
-    // gitHubUsers.load().subscribe(users => {
-    //   console.log(users);
-    //   this.users=users;
-    //   this.originalUsers = users;
-    // })
+    
   }
 
   ionViewDidLoad() {

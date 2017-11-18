@@ -45,11 +45,6 @@ var PlayersPage = (function () {
             this.team = this.navParams.data;
         }
         console.log('choosen team: ' + this.team);
-        // gitHubUsers.load().subscribe(users => {
-        //   console.log(users);
-        //   this.users=users;
-        //   this.originalUsers = users;
-        // })
     }
     PlayersPage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -198,16 +193,105 @@ var PlayersPage = (function () {
 }());
 PlayersPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-players',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\players\players.html"*/'<!--\n\n  Generated template for the PlayersPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n      <button ion-button icon-only menuToggle>\n\n          <ion-icon name="menu"></ion-icon> \n\n        </button>\n\n    <ion-title>players\n\n    <ion-badge>{{arrivedPlayers.length}}</ion-badge>\n\n  </ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n    <div class="bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">\n\n        <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  >\n\n            <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">\n\n            <div> {{player2.name}}</div>\n\n          </div>\n\n          </div>  \n\n        <!-- <div class="" style="width: 70%;  height: 58px;margin: 0 auto;display:flex">\n\n            <ion-scroll scrollX="true" class="wide-as-needed" [ngStyle]="{\'left\': \'70px\'}" style="position: relative;\n\n            top: 5px;\n\n            margin: 0px auto;\n\n            width: 100%;\n\n           ">\n\n               \n\n              </ion-scroll> \n\n            \n\n        </div> -->\n\n        </div>\n\n  \n\n  <div [style.height]="arrivedPlayers.length > 10 ? \'calc(100% - 108px)\' : \'calc(100% - 55px)\'"  class="players-main">\n\n\n\n  \n\n    <div class="first-player">\n\n        <div class="item" *ngFor="let player2 of arrivedPlayers.slice(0,1)" >\n\n        <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">\n\n            <div> {{player2.name}}</div>  \n\n          </div>\n\n    </div>\n\n  </div>\n\n    <div class="container">\n\n    <div class="item" *ngFor="let player2 of arrivedPlayers.slice(1,5)" >\n\n      <div class="child" (click)="goToDetails(player2)">\n\n      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n      <div> {{player2.name}}</div>\n\n    </div>\n\n    </div>   \n\n  </div>\n\n  <div class="container">\n\n    <div class="item" *ngFor="let player2 of arrivedPlayers.slice(5,9)" >\n\n      <div class="child" (click)="goToDetails(player2)">\n\n      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n      <div> {{player2.name}}</div>\n\n    </div>\n\n    </div>   \n\n    <div class="">\n\n        <div class="item" *ngFor="let player2 of arrivedPlayers.slice(9,10)" >\n\n        <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n            <div> {{player2.name}}</div>  \n\n          </div>\n\n    </div>\n\n  </div> \n\n  </div>\n\n \n\n\n\n  \n\n\n\n</div>\n\n\n\n\n\n<div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >\n\n    <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">\n\n        <div class="child">\n\n        <img [src]="player2.img || default_img" class="radius avatar" >\n\n        <div> {{player2.name}}</div>\n\n      </div>\n\n      </div>  \n\n\n\n\n\n    <!-- <div class="" style="width: 80%;  height: 58px;margin: 0 auto;display:flex">\n\n        <ion-scroll scrollX="true" class="wide-as-needed"  style="position: relative;\n\n        top: 5px;\n\n        margin: 0px auto;\n\n        width: 100%;\n\n       ">\n\n          \n\n          </ion-scroll> \n\n        \n\n    </div> -->\n\n    </div>\n\n    \n\n\n\n\n\n\n\n\n\n\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\players\players.html"*/,
+        selector: 'page-players',template:/*ion-inline-start:"C:\dev\football\src\pages\players\players.html"*/'<!--\n\n  Generated template for the PlayersPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n      <button ion-button icon-only menuToggle>\n\n          <ion-icon name="menu"></ion-icon> \n\n        </button>\n\n    <ion-title>players\n\n    <ion-badge>{{arrivedPlayers.length}}</ion-badge>\n\n  </ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n    <div class="bench-background"  style="padding-top: 5px;padding-bottom: 5px;"  *ngIf="arrivedPlayers.length > 10">\n\n        <div class="" *ngFor="let player2 of arrivedPlayers.slice(10,30)"  >\n\n            <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">\n\n            <div> {{player2.name}}</div>\n\n          </div>\n\n          </div>  \n\n        <!-- <div class="" style="width: 70%;  height: 58px;margin: 0 auto;display:flex">\n\n            <ion-scroll scrollX="true" class="wide-as-needed" [ngStyle]="{\'left\': \'70px\'}" style="position: relative;\n\n            top: 5px;\n\n            margin: 0px auto;\n\n            width: 100%;\n\n           ">\n\n               \n\n              </ion-scroll> \n\n            \n\n        </div> -->\n\n        </div>\n\n  \n\n  <div [style.height]="arrivedPlayers.length > 10 ? \'calc(100% - 108px)\' : \'calc(100% - 55px)\'"  class="players-main">\n\n\n\n  \n\n    <div class="first-player">\n\n        <div class="item" *ngFor="let player2 of arrivedPlayers.slice(0,1)" >\n\n        <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">\n\n            <div> {{player2.name}}</div>  \n\n          </div>\n\n    </div>\n\n  </div>\n\n    <div class="container">\n\n    <div class="item" *ngFor="let player2 of arrivedPlayers.slice(1,5)" >\n\n      <div class="child" (click)="goToDetails(player2)">\n\n      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n      <div> {{player2.name}}</div>\n\n    </div>\n\n    </div>   \n\n  </div>\n\n  <div class="container">\n\n    <div class="item" *ngFor="let player2 of arrivedPlayers.slice(5,9)" >\n\n      <div class="child" (click)="goToDetails(player2)">\n\n      <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n      <div> {{player2.name}}</div>\n\n    </div>\n\n    </div>   \n\n    <div class="">\n\n        <div class="item" *ngFor="let player2 of arrivedPlayers.slice(9,10)" >\n\n        <div class="child" (click)="goToDetails(player2)">\n\n            <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >\n\n            <div> {{player2.name}}</div>  \n\n          </div>\n\n    </div>\n\n  </div> \n\n  </div>\n\n \n\n\n\n  \n\n\n\n</div>\n\n\n\n\n\n<div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >\n\n    <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">\n\n        <div class="child">\n\n        <img [src]="player2.img || default_img" class="radius avatar" >\n\n        <div> {{player2.name}}</div>\n\n      </div>\n\n      </div>  \n\n\n\n\n\n    <!-- <div class="" style="width: 80%;  height: 58px;margin: 0 auto;display:flex">\n\n        <ion-scroll scrollX="true" class="wide-as-needed"  style="position: relative;\n\n        top: 5px;\n\n        margin: 0px auto;\n\n        width: 100%;\n\n       ">\n\n          \n\n          </ion-scroll> \n\n        \n\n    </div> -->\n\n    </div>\n\n    \n\n\n\n\n\n\n\n\n\n\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"C:\dev\football\src\pages\players\players.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */]) === "function" && _c || Object])
 ], PlayersPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=players.js.map
 
 /***/ }),
 
-/***/ 153:
+/***/ 147:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TeamsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(66);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the TeamsPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+var TeamsPage = (function () {
+    function TeamsPage(loadingController, nav, playersApi) {
+        this.loadingController = loadingController;
+        this.nav = nav;
+        this.playersApi = playersApi;
+        this.teams = [];
+    }
+    TeamsPage.prototype.ionViewDidLoad = function () {
+        //let selectedTourney = this.navParams.data;
+        var _this = this;
+        var loader = this.loadingController.create({
+            content: 'Getting data...'
+        });
+        loader.present().then(function () {
+            _this.playersApi.getTeamsData().then(function (data) {
+                _this.allTeams = data;
+                _this.allTeamDivisions = data;
+                /*_.chain(data.teams)
+                  .groupBy('division')
+                  .toPairs()
+                  .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
+                  .value();*/
+                console.log('division teams', _this.teams);
+                loader.dismiss();
+            });
+        });
+    };
+    TeamsPage.prototype.itemTapped = function ($event, team) {
+        var _this = this;
+        localStorage.setItem('groupUser', JSON.stringify(team));
+        this.nav.popToRoot().then(function (x) {
+            _this.nav.push(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */], team);
+        });
+        // this.nav.setRoot(TabsPage, team);
+    };
+    TeamsPage.prototype.updateTeams = function () {
+        var queryTextLower = this.queryText.toLowerCase();
+        var filteredTeams = [];
+        this.allTeamDivisions.forEach(function (td) {
+            var teams = td.divisionTeams.filter(td.divisionTeams, function (t) { return t.name.toLowerCase().includes(queryTextLower); });
+            if (teams.length) {
+                filteredTeams.push({ divisionName: td.divisionName, divisionTeams: teams });
+            }
+        });
+        this.teams = filteredTeams;
+    };
+    return TeamsPage;
+}());
+TeamsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-teams',template:/*ion-inline-start:"C:\dev\football\src\pages\teams\teams.html"*/'<ion-header>\n\n  <ion-navbar primary>\n\n    <ion-title>Teams</ion-title>\n\n  </ion-navbar>\n\n\n\n <!-- <ion-toolbar>\n\n    <ion-searchbar placeholder="Search"\n\n                   [(ngModel)]="queryText"\n\n                   (ionInput)="updateTeams()">\n\n    </ion-searchbar>\n\n  </ion-toolbar>-->\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n      <button ion-item *ngFor="let team of allTeams" (click)="itemTapped($event, team)">\n\n        {{team.name}}\n\n      </button>\n\n  </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\dev\football\src\pages\teams\teams.html"*/,
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */]) === "function" && _c || Object])
+], TeamsPage);
+
+var _a, _b, _c;
+//# sourceMappingURL=teams.js.map
+
+/***/ }),
+
+/***/ 154:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -220,11 +304,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 153;
+webpackEmptyAsyncContext.id = 154;
 
 /***/ }),
 
-/***/ 154:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -392,7 +476,7 @@ var AboutPage = (function () {
 }());
 AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Line\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <div *ngIf="arrivedPlayers.length < 8" style="text-align:center">Not enough players to begin a match</div>\n\n    <div *ngIf="arrivedPlayers.length > 7">\n\n    <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">\n\n        <div style="flex:1" class="" *ngFor="let player of team"   >\n\n          <div class="child"  (click)="goToDetails(player)">\n\n            <img [src]="player?.img || default_img" class="user-picture image" >\n\n            <div class="user-name"> {{player?.name}}</div>\n\n          </div>\n\n       </div>\n\n       <ion-badge item-right>{{teamPower(team).toFixed(0)}}</ion-badge>\n\n      </div>  \n\n    </div> \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/
+        selector: 'page-about',template:/*ion-inline-start:"C:\dev\football\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Line\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <div *ngIf="arrivedPlayers.length < 8" style="text-align:center">Not enough players to begin a match</div>\n\n    <div *ngIf="arrivedPlayers.length > 7">\n\n    <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">\n\n        <div style="flex:1" class="" *ngFor="let player of team"   >\n\n          <div class="child"  (click)="goToDetails(player)">\n\n            <img [src]="player?.img || default_img" class="user-picture image" >\n\n            <div class="user-name"> {{player?.name}}</div>\n\n          </div>\n\n       </div>\n\n       <ion-badge item-right>{{teamPower(team).toFixed(0)}}</ion-badge>\n\n      </div>  \n\n    </div> \n\n</ion-content>\n\n'/*ion-inline-end:"C:\dev\football\src\pages\about\about.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]])
 ], AboutPage);
@@ -401,7 +485,7 @@ AboutPage = __decorate([
 
 /***/ }),
 
-/***/ 195:
+/***/ 196:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -414,11 +498,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 195;
+webpackEmptyAsyncContext.id = 196;
 
 /***/ }),
 
-/***/ 278:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -445,9 +529,10 @@ var ContactPage = (function () {
         this.navCtrl = navCtrl;
         this.playaers_api = playaers_api;
     }
-    ContactPage.prototype.ionViewDidLoad = function () {
+    ContactPage.prototype.ionViewDidEnter = function () {
         var _this = this;
         console.log('ionViewDidLoad UsersPage');
+        // let team = JSON.parse(localStorage.getItem('groupUser'));
         this.playaers_api.loadPlayers().then(function (res) {
             _this.players = res;
             console.log('response contacts' + res);
@@ -461,7 +546,7 @@ var ContactPage = (function () {
 }());
 ContactPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-contact',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\contact\contact.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Contact\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor="let player of players" (click)="goToDetails(player)" style="border-bottom: 1px solid #ebeef2;">\n\n        <ion-avatar item-start>\n\n            <img [src]="player.img || \'../assets/empty_profile.png\'">\n\n          </ion-avatar>\n\n        <h2>{{player.name}}</h2>\n\n        <ion-icon [hidden]="!player.arrive" name="ios-thumbs-up-outline"></ion-icon>\n\n        <ion-icon [hidden]="player.arrive" name="ios-thumbs-down-outline"></ion-icon>\n\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\contact\contact.html"*/
+        selector: 'page-contact',template:/*ion-inline-start:"C:\dev\football\src\pages\contact\contact.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Contact\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor="let player of players" (click)="goToDetails(player)" style="border-bottom: 1px solid #ebeef2;">\n\n        <ion-avatar item-start>\n\n            <img [src]="player.img || \'../assets/empty_profile.png\'">\n\n          </ion-avatar>\n\n        <h2>{{player.name}}</h2>\n\n        <ion-icon [hidden]="!player.arrive" name="ios-thumbs-up-outline"></ion-icon>\n\n        <ion-icon [hidden]="player.arrive" name="ios-thumbs-down-outline"></ion-icon>\n\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\dev\football\src\pages\contact\contact.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_players_api_players_api__["a" /* PlayersApiProvider */]])
 ], ContactPage);
@@ -470,17 +555,18 @@ ContactPage = __decorate([
 
 /***/ }),
 
-/***/ 279:
+/***/ 280:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_login__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_auth_auth__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_players_api_players_api__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__player_details_player_details__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__teams_teams__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_login__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_players_api_players_api__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__player_details_player_details__ = __webpack_require__(63);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -490,6 +576,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -537,7 +624,7 @@ var SettingsPage = (function () {
         confirm.present();
     };
     SettingsPage.prototype.goToDetails = function (player) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
     };
     SettingsPage.prototype.isAdmin = function () {
         var _this = this;
@@ -553,105 +640,23 @@ var SettingsPage = (function () {
         this.authService.logout().then(function (x) { return console.log('log out from settings page'); });
     };
     SettingsPage.prototype.goToLogin = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_0__login_login__["a" /* LoginPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__login_login__["a" /* LoginPage */]);
+    };
+    SettingsPage.prototype.changeTeam = function () {
+        localStorage.removeItem('groupUser');
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_0__teams_teams__["a" /* TeamsPage */]);
     };
     return SettingsPage;
 }());
 SettingsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'settings-home',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\settings\settings.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Settings</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-list *ngIf="false">\n\n    <ion-item>\n\n      <ion-label fixed>Username</ion-label>\n\n      <ion-input [(ngModel)]="user.name" type="text" value=""></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Password</ion-label>\n\n      <ion-input [(ngModel)]="user.password" type="password"></ion-input>\n\n    </ion-item>\n\n    <div padding>\n\n      <button ion-button (click)="isAdmin(user)" color="primary" block>Sign In</button>\n\n    </div>\n\n  </ion-list>\n\n  <div *ngIf="admin">\n\n    <p>\n\n      <button ion-button full (click)="showConfirm()"> Reset Players </button>\n\n    </p>\n\n    <p>\n\n      <button ion-button full (click)="goToDetails({})"> Add New Player </button>\n\n    </p>\n\n    <p>\n\n      <button ion-button full (click)="logOut()"> logOut </button>\n\n    </p>\n\n    \n\n  </div>\n\n\n\n  <div  *ngIf="!admin" (click)="goToLogin()">You don\'t have a permission to view this page. <a>go to login page</a> </div>\n\n</ion-content>'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\settings\settings.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["n" /* Component */])({
+        selector: 'settings-home',template:/*ion-inline-start:"C:\dev\football\src\pages\settings\settings.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Settings</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-list *ngIf="false">\n\n    <ion-item>\n\n      <ion-label fixed>Username</ion-label>\n\n      <ion-input [(ngModel)]="user.name" type="text" value=""></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Password</ion-label>\n\n      <ion-input [(ngModel)]="user.password" type="password"></ion-input>\n\n    </ion-item>\n\n    <div padding>\n\n      <button ion-button (click)="isAdmin(user)" color="primary" block>Sign In</button>\n\n    </div>\n\n  </ion-list>\n\n  <div *ngIf="admin">\n\n    <p>\n\n      <button ion-button full (click)="showConfirm()"> Reset Players </button>\n\n    </p>\n\n    <p>\n\n      <button ion-button full (click)="goToDetails({})"> Add New Player </button>\n\n    </p>\n\n    <p>\n\n      <button ion-button full (click)="logOut()"> logOut </button>\n\n    </p>\n\n    <p>\n\n      <button ion-button full (click)="changeTeam()"> Change Team </button>\n\n    </p>\n\n    \n\n  </div>\n\n\n\n  <div  *ngIf="!admin" (click)="goToLogin()">You don\'t have a permission to view this page. <a>go to login page</a> </div>\n\n</ion-content>'/*ion-inline-end:"C:\dev\football\src\pages\settings\settings.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__providers_players_api_players_api__["a" /* PlayersApiProvider */], __WEBPACK_IMPORTED_MODULE_1__providers_auth_auth__["a" /* AuthProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__providers_players_api_players_api__["a" /* PlayersApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_players_api_players_api__["a" /* PlayersApiProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _d || Object])
 ], SettingsPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=settings.js.map
-
-/***/ }),
-
-/***/ 282:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TeamsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(66);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the TeamsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-var TeamsPage = (function () {
-    function TeamsPage(loadingController, nav, navParams, playersApi) {
-        this.loadingController = loadingController;
-        this.nav = nav;
-        this.navParams = navParams;
-        this.playersApi = playersApi;
-        this.teams = [];
-    }
-    TeamsPage.prototype.ionViewDidLoad = function () {
-        //let selectedTourney = this.navParams.data;
-        var _this = this;
-        var loader = this.loadingController.create({
-            content: 'Getting data...'
-        });
-        loader.present().then(function () {
-            _this.playersApi.getTeamsData().then(function (data) {
-                _this.allTeams = data;
-                _this.allTeamDivisions = data;
-                /*_.chain(data.teams)
-                  .groupBy('division')
-                  .toPairs()
-                  .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
-                  .value();*/
-                console.log('division teams', _this.teams);
-                loader.dismiss();
-            });
-        });
-    };
-    TeamsPage.prototype.itemTapped = function ($event, team) {
-        localStorage.setItem('groupUser', JSON.stringify(team));
-        this.nav.push(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */], team);
-    };
-    TeamsPage.prototype.updateTeams = function () {
-        var queryTextLower = this.queryText.toLowerCase();
-        var filteredTeams = [];
-        this.allTeamDivisions.forEach(function (td) {
-            var teams = td.divisionTeams.filter(td.divisionTeams, function (t) { return t.name.toLowerCase().includes(queryTextLower); });
-            if (teams.length) {
-                filteredTeams.push({ divisionName: td.divisionName, divisionTeams: teams });
-            }
-        });
-        this.teams = filteredTeams;
-    };
-    return TeamsPage;
-}());
-TeamsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-teams',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\teams\teams.html"*/'<ion-header>\n  <ion-navbar primary>\n    <ion-title>Teams</ion-title>\n  </ion-navbar>\n\n <!-- <ion-toolbar>\n    <ion-searchbar placeholder="Search"\n                   [(ngModel)]="queryText"\n                   (ionInput)="updateTeams()">\n    </ion-searchbar>\n  </ion-toolbar>-->\n</ion-header>\n\n<ion-content>\n  <ion-list>\n      <button ion-item *ngFor="let team of allTeams" (click)="itemTapped($event, team)">\n        {{team.name}}\n      </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\teams\teams.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */]])
-], TeamsPage);
-
-//# sourceMappingURL=teams.js.map
 
 /***/ }),
 
@@ -682,20 +687,20 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(415);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_about_about__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_contact_contact__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_about_about__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_contact_contact__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_tabs_tabs__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_players_players__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_player_details_player_details__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_players_api_players_api__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angularfire2_database__ = __webpack_require__(236);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_settings_settings__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angularfire2_database__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_settings_settings__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angularfire2_auth__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_google_plus__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_teams_teams__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_google_plus__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_teams_teams__ = __webpack_require__(147);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -793,10 +798,10 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayersApiProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_take__ = __webpack_require__(402);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_take___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_take__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(65);
@@ -848,7 +853,7 @@ var PlayersApiProvider = (function () {
         console.log('handle data');
     };
     PlayersApiProvider.prototype.checkIfUserExists = function (authData) {
-        return this.firebase.database.ref(baseURL)
+        return this.firebase.database.ref(baseURL2 + "/" + this.getCurrentTeam().id + "/players")
             .child(authData.uid)
             .once('value')
             .then(function (dataSnapshot) {
@@ -866,7 +871,8 @@ var PlayersApiProvider = (function () {
         this.loader.present();
         //this.db_list.update(player.$key,player); update by list
         return new Promise(function (resolve) {
-            _this.firebase.object(baseURL + (player.$key || player.key)).update(config).then(function (x) {
+            var base = baseURL2 + "/" + _this.getCurrentTeam().id + "/players/";
+            _this.firebase.object(base + (player.$key || player.key)).update(config).then(function (x) {
                 _this.loader.dismiss();
                 _this.events.publish('player:updated', player, Date.now());
                 console.log(' player updated: ' + x);
@@ -894,7 +900,8 @@ var PlayersApiProvider = (function () {
         });
         this.loader.present();
         //this.firebase.list(baseURL).remove(id);
-        this.firebase.object(baseURL + (player.$key || player.key)).remove().then(function (x) {
+        var base = baseURL2 + "/" + this.getCurrentTeam().id + "/players/";
+        this.firebase.object(base + (player.$key || player.key)).remove().then(function (x) {
             _this.loader.dismiss();
             localStorage.setItem('skipUser', 'false');
             _this.app.getActiveNav().setRoot(__WEBPACK_IMPORTED_MODULE_6__pages_login_login__["a" /* LoginPage */]); // can't  inject NavController in provider
@@ -913,19 +920,27 @@ var PlayersApiProvider = (function () {
             img: auth.providerData[0].photoURL,
             phone: auth.phoneNumber
         };
-        this.firebase.object("" + baseURL + player.uid).set(player);
+        var base = baseURL2 + "/" + this.getCurrentTeam().id + "/players";
+        this.firebase.object(base + "/" + player.uid).set(player);
     };
     PlayersApiProvider.prototype.addPlayer = function (player) {
         var _this = this;
         player.index = 0;
         player.admin = false;
         player.arrive = false;
-        var dbRef = this.firebase.database.ref(baseURL);
-        //   let key = dbRef.push();
-        this.getLastFromList(dbRef, function (last) {
-            //  dbRef.child(last).set(player);
-            _this.db_list.update(last.toString(), player);
+        var base = baseURL2 + "/" + this.getCurrentTeam().id + "/players";
+        var dbRef = this.firebase.database.ref(base);
+        return new Promise(function (resolve) {
+            var key = dbRef.push().then(function (x) {
+                player.uid = x.key;
+                _this.firebase.object(base + "/" + player.uid).set(player).then(function (data) {
+                    resolve();
+                });
+            });
         });
+        // this.getLastFromList(dbRef, (last) => {
+        //   this.db_list.update(last.toString(), player);
+        // })
     };
     PlayersApiProvider.prototype.getLastFromList = function (ref, cb) {
         ref.limitToLast(1).once("child_added", function (snapshot) {
@@ -948,7 +963,7 @@ var PlayersApiProvider = (function () {
                 console.log('starting to reset players' + players);
                 var field = 'arrive';
                 var value = false;
-                var players2Update = _this.bulkUpdate(players, field, value);
+                var players2Update = _this.bulkUpdate(players, field, value, _this.getCurrentTeam().id);
                 _this.firebase.database.ref().update(players2Update).then(function (x) {
                     _this.loader.dismiss();
                     console.log('finish reset players');
@@ -962,21 +977,25 @@ var PlayersApiProvider = (function () {
     PlayersApiProvider.prototype.getPlayer = function (player) {
         var _this = this;
         new Promise(function (resolve) {
-            var player2 = _this.firebase.object(baseURL + (player.$key || player.key)).take(1).subscribe(function (data) {
+            var base = baseURL2 + "/" + _this.getCurrentTeam().id + "/players/";
+            var player2 = _this.firebase.object(base + (player.$key || player.key)).take(1).subscribe(function (data) {
                 resolve(player2);
             });
         });
     };
-    PlayersApiProvider.prototype.load2 = function (teamId) {
-        return this.firebase.list(baseURL2 + "/" + teamId + "/players");
+    PlayersApiProvider.prototype.load2 = function (teamd) {
+        var base = baseURL2 + "/" + this.getCurrentTeam().id + "/players";
+        return this.firebase.list(base);
     };
     PlayersApiProvider.prototype.loadPlayers = function () {
         var _this = this;
         //  if(this.data){
         //      return Promise.resolve(this.data);
         //  }
+        var base = baseURL2 + "/" + this.getCurrentTeam().id + "/players";
         return new Promise(function (resolve, reject) {
-            _this.db_list.take(1).subscribe(function (players) {
+            _this.firebase.list(base).take(1).subscribe(function (players) {
+                //   this.db_list.take(1).subscribe(players => {
                 resolve(players);
                 _this.data = players;
                 console.log('players:', players);
@@ -997,6 +1016,10 @@ var PlayersApiProvider = (function () {
     //     });
     //   })
     // };
+    PlayersApiProvider.prototype.getCurrentTeam = function () {
+        var team = JSON.parse(localStorage.getItem('groupUser'));
+        return team;
+    };
     PlayersApiProvider.prototype.getShoppingItems = function () {
         return this.firebase.list(baseURL);
     };
@@ -1006,14 +1029,15 @@ var PlayersApiProvider = (function () {
     PlayersApiProvider.prototype.removeItem = function (id) {
         this.firebase.list(baseURL).remove(id);
     };
-    PlayersApiProvider.prototype.bulkUpdate = function (ref, field, value) {
+    PlayersApiProvider.prototype.bulkUpdate = function (ref, field, value, teamId) {
         // object to hold the bulk update
         var batch = {};
         // Using a ES6 promise here, use a library or polyfil for compatibility
         // using Object.keys will allow us to iterate over an array or object
         ref.forEach(function (r) {
             // get the push id from the child reference, no server trip is made here
-            var pushId = baseURL + r.$key + '/' + field;
+            var base = baseURL2 + "/" + teamId + "/players/";
+            var pushId = base + r.$key + '/' + field;
             // using the pushId, assign the value to the bulk update object
             batch[pushId] = value;
         });
@@ -1023,9 +1047,10 @@ var PlayersApiProvider = (function () {
 }());
 PlayersApiProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* Events */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* App */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* Events */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* App */]) === "function" && _e || Object])
 ], PlayersApiProvider);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=players-api.js.map
 
 /***/ }),
@@ -1040,10 +1065,10 @@ PlayersApiProvider = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_login_login__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_teams_teams__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_teams_teams__ = __webpack_require__(147);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1119,7 +1144,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\dev\football\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\dev\football\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_0__providers_players_api_players_api__["a" /* PlayersApiProvider */]])
 ], MyApp);
@@ -1181,8 +1206,11 @@ var PlayerDetailsPage = (function () {
         });
     };
     PlayerDetailsPage.prototype.addNewPlayer = function (player) {
+        var _this = this;
         console.log('Adding new player : ' + JSON.stringify(player));
-        this.players_api.addPlayer(player);
+        this.players_api.addPlayer(player).then(function (x) {
+            _this.navCtrl.pop();
+        });
     };
     PlayerDetailsPage.prototype.deletePlayer = function (player) {
         var _this = this;
@@ -1195,11 +1223,12 @@ var PlayerDetailsPage = (function () {
 }());
 PlayerDetailsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-player-details',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\player-details\player-details.html"*/'<ion-header>\n\n  <ion-navbar>\n\n   \n\n    \n\n    \n\n    <ion-title style="align-items: center;display: flex;"> <img [src]="player?.img" class="radius avatar"> {{player?.name}}\'s details</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding >\n\n  <ion-list>\n\n      <ion-item >\n\n          <ion-label> Name</ion-label>\n\n          <ion-input text-right [(ngModel)]="player.name"></ion-input>\n\n        </ion-item>\n\n      <ion-item>\n\n          <ion-label> Arrive</ion-label>\n\n          <ion-toggle  [(ngModel)]="player.arrive"  (ionChange)="updatePlayer(player)" ></ion-toggle>\n\n        </ion-item>\n\n        <ion-item [hidden]="!player.admin">\n\n            <ion-label> Admin</ion-label>\n\n            <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>\n\n          </ion-item>\n\n    <ion-item>\n\n      <ion-label>Phone</ion-label>\n\n      <ion-input  text-right [(ngModel)]="player.phone"></ion-input>\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Number</ion-label>\n\n      <ion-badge [hidden]="!player.index" item-right>{{player?.number}}</ion-badge>\n\n      <ion-input [hidden]="player.index" text-right [(ngModel)]="player.number"></ion-input>\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Strength \n\n          <ion-badge item-right>{{player?.strength}}</ion-badge>\n\n      </ion-label>\n\n        \n\n          <ion-range item-right [(ngModel)]="player.strength" min="1" max="100" step="0.01" pin="true" >\n\n              <ion-label range-left class="small-text">0</ion-label>\n\n              <ion-label range-right>100</ion-label>\n\n          </ion-range>\n\n    \n\n      \n\n     \n\n      <!-- <ion-badge item-right>{{player?.strength}}</ion-badge> -->\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Image</ion-label>\n\n      <ion-input  item-right type="text"  [(ngModel)]="player.img" ></ion-input>\n\n      <!-- <ion-text item-right>{{player?.img}}  [(ngModel)]="player.img"</ion-text> -->\n\n    </ion-item>\n\n  </ion-list>    \n\n  <button *ngIf="player.index === 0 || player.index > 0" ion-button full (click)="updatePlayer(player)">Update</button>\n\n  <button *ngIf="player.index == undefined" ion-button full (click)="addNewPlayer(player)">Add New Player</button>\n\n  <button *ngIf="player.index === 0 || player.index > 0"  ion-button block color="danger"  (click)="deletePlayer(player)">Delete Player</button>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\player-details\player-details.html"*/,
+        selector: 'page-player-details',template:/*ion-inline-start:"C:\dev\football\src\pages\player-details\player-details.html"*/'<ion-header>\n\n  <ion-navbar>\n\n   \n\n    \n\n    \n\n    <ion-title style="align-items: center;display: flex;"> <img [src]="player?.img" class="radius avatar"> {{player?.name}}\'s details</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding >\n\n  <ion-list>\n\n      <ion-item >\n\n          <ion-label> Name</ion-label>\n\n          <ion-input text-right [(ngModel)]="player.name"></ion-input>\n\n        </ion-item>\n\n      <ion-item>\n\n          <ion-label> Arrive</ion-label>\n\n          <ion-toggle  [(ngModel)]="player.arrive"  (ionChange)="updatePlayer(player)" ></ion-toggle>\n\n        </ion-item>\n\n        <ion-item [hidden]="!player.admin">\n\n            <ion-label> Admin</ion-label>\n\n            <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>\n\n          </ion-item>\n\n    <ion-item>\n\n      <ion-label>Phone</ion-label>\n\n      <ion-input  text-right [(ngModel)]="player.phone"></ion-input>\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Number</ion-label>\n\n      <ion-badge [hidden]="!player.index" item-right>{{player?.number}}</ion-badge>\n\n      <ion-input [hidden]="player.index" text-right [(ngModel)]="player.number"></ion-input>\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Strength \n\n          <ion-badge item-right>{{player?.strength}}</ion-badge>\n\n      </ion-label>\n\n        \n\n          <ion-range item-right [(ngModel)]="player.strength" min="1" max="100" step="0.01" pin="true" >\n\n              <ion-label range-left class="small-text">0</ion-label>\n\n              <ion-label range-right>100</ion-label>\n\n          </ion-range>\n\n    \n\n      \n\n     \n\n      <!-- <ion-badge item-right>{{player?.strength}}</ion-badge> -->\n\n    </ion-item>\n\n     <ion-item>\n\n      <ion-label>Image</ion-label>\n\n      <ion-input  item-right type="text"  [(ngModel)]="player.img" ></ion-input>\n\n      <!-- <ion-text item-right>{{player?.img}}  [(ngModel)]="player.img"</ion-text> -->\n\n    </ion-item>\n\n  </ion-list>    \n\n  <button *ngIf="player.index === 0 || player.index > 0" ion-button full (click)="updatePlayer(player)">Update</button>\n\n  <button *ngIf="player.index == undefined" ion-button full (click)="addNewPlayer(player)">Add New Player</button>\n\n  <button *ngIf="player.index === 0 || player.index > 0"  ion-button block color="danger"  (click)="deletePlayer(player)">Delete Player</button>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"C:\dev\football\src\pages\player-details\player-details.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__providers_players_api_players_api__["a" /* PlayersApiProvider */], __WEBPACK_IMPORTED_MODULE_0__providers_auth_auth__["a" /* AuthProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__providers_players_api_players_api__["a" /* PlayersApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_players_api_players_api__["a" /* PlayersApiProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _d || Object])
 ], PlayerDetailsPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=player-details.js.map
 
 /***/ }),
@@ -1258,7 +1287,7 @@ var LoginPage = (function () {
 }());
 LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-login',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>login</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding class="cover">\n\n  <ion-footer>\n\n  <button  ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">\n\n    <ion-icon name="logo-googleplus"></ion-icon>\n\n    Login with Google\n\n  </button>\n\n  <button ion-button block color="primary" (click)="skipLogin()" *ngIf="!userProfile">\n\n    \n\n    Skip\n\n  </button>\n\n</ion-footer>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\login\login.html"*/,
+        selector: 'page-login',template:/*ion-inline-start:"C:\dev\football\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>login</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding class="cover">\n\n  <ion-footer>\n\n  <button  ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">\n\n    <ion-icon name="logo-googleplus"></ion-icon>\n\n    Login with Google\n\n  </button>\n\n  <button ion-button block color="primary" (click)="skipLogin()" *ngIf="!userProfile">\n\n    \n\n    Skip\n\n  </button>\n\n</ion-footer>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\dev\football\src\pages\login\login.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__providers_auth_auth__["a" /* AuthProvider */]])
 ], LoginPage);
@@ -1273,10 +1302,10 @@ LoginPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_about__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_contact__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_about__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_contact__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__players_players__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_settings__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_settings__ = __webpack_require__(280);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1301,7 +1330,7 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 TabsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" tabTitle="Field" tabIcon="shirt"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Line" tabIcon="podium"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Players" tabIcon="contacts"></ion-tab>\n\n  <ion-tab [root]="tab4Root" tabTitle="Settings" tabIcon="settings"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\tabs\tabs.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\dev\football\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" tabTitle="Field" tabIcon="shirt"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Line" tabIcon="podium"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Players" tabIcon="contacts"></ion-tab>\n\n  <ion-tab [root]="tab4Root" tabTitle="Settings" tabIcon="settings"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\dev\football\src\pages\tabs\tabs.html"*/
     }),
     __metadata("design:paramtypes", [])
 ], TabsPage);
@@ -1316,11 +1345,11 @@ TabsPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_plus__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_plus__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_firebase_app__);

@@ -1,3 +1,4 @@
+import { TeamsPage } from './../teams/teams';
 import { LoginPage } from './../login/login';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
@@ -65,6 +66,11 @@ export class SettingsPage {
   }
   goToLogin(){
     this.navCtrl.push(LoginPage);
+  }
+  changeTeam(){
+    localStorage.removeItem('groupUser');
+    this.navCtrl.push(TeamsPage);
+   
   }
 
 }

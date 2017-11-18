@@ -12,8 +12,9 @@ players:any;
   constructor(public navCtrl: NavController ,public  playaers_api : PlayersApiProvider ) {
 
   }
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad UsersPage');
+    // let team = JSON.parse(localStorage.getItem('groupUser'));
      this.playaers_api.loadPlayers().then((res) => { 
        this.players = res;
        console.log('response contacts' + res );

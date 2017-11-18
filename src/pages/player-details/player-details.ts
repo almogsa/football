@@ -41,7 +41,9 @@ export class PlayerDetailsPage {
   }
   addNewPlayer(player){
     console.log('Adding new player : '+ JSON.stringify(player))
-    this.players_api.addPlayer(player);
+    this.players_api.addPlayer(player).then(x => {
+      this.navCtrl.pop();
+    });
   }
   deletePlayer(player){
     console.log('deleting  player : '+ JSON.stringify(player))
