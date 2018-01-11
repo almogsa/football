@@ -37,7 +37,7 @@ export class PlayersApiProvider {
     this.db_list = firebase.list(baseURL);  // list return an array of values
     this.db_listTeams = firebase.list('teams');  // list return an array of values
     this.db_object = firebase.object(baseURL + '/key');
-    
+
 
    /* firebase.list(baseURL).subscribe(data => {
       this.data = data;
@@ -52,6 +52,9 @@ export class PlayersApiProvider {
     console.log('handle data');
   }
   checkIfUserExists(authData) {
+    if(!this.getCurrentTeam()){
+      return Promise.reject('There is no group');
+    };
     return this.firebase.database.ref(`${baseURL2}/${this.getCurrentTeam().id}/players`)
       .child(authData.uid)
       .once('value')
@@ -133,23 +136,23 @@ export class PlayersApiProvider {
     let base = `${baseURL2}/${this.getCurrentTeam().id}/players`;
     let dbRef = this.firebase.database.ref(base);
     return new Promise(resolve =>{
-  
-    let key = dbRef.push().then(x => {
-     
+
+    dbRef.push().then(x => {
+
       player.uid= x.key;
-    
+
         this.firebase.object(`${base}/${player.uid}`).set(player).then(data => {
           resolve();
         })
       })
-  
+
     })
-   
-   
-    
-  
-     
-   
+
+
+
+
+
+
     // this.getLastFromList(dbRef, (last) => {
     //   this.db_list.update(last.toString(), player);
 
@@ -263,7 +266,7 @@ export class PlayersApiProvider {
     // using Object.keys will allow us to iterate over an array or object
    ref.forEach(function (r) {
       // get the push id from the child reference, no server trip is made here
-     
+
      let base = `${baseURL2}/${teamId}/players/`;
       var pushId = base + r.$key + '/' + field;
       // using the pushId, assign the value to the bulk update object

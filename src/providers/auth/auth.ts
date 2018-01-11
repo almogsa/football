@@ -1,4 +1,4 @@
-import {Platform} from 'ionic-angular';
+import {NavController, Platform} from 'ionic-angular';
 import {GooglePlus} from '@ionic-native/google-plus';
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
@@ -16,7 +16,7 @@ import {PlayersPage} from '../../pages/players/players';
 @Injectable()
 export class AuthProvider {
 
-  constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform) {
+  constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform,public navCtrl: NavController) {
     console.log('Hello AuthProvider Provider');
     //  this.user = this.afAuth.authState;
 
@@ -38,6 +38,7 @@ export class AuthProvider {
 
       this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
         console.log('Login Success');
+        this.navCtrl.push(PlayersPage);
       })
         .catch(error => console.log('Login failed'));
     }
@@ -67,7 +68,7 @@ export class AuthProvider {
   }
 
   checkPlayerExists(){
-  
+
   }
   getAuth(): any {
     return new Promise(resolve => {

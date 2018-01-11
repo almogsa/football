@@ -34,7 +34,7 @@ export class PlayersPage {
 
 
     console.log('choosen team: '+ this.team)
-    
+
   }
 
   ionViewDidLoad() {
@@ -51,6 +51,15 @@ export class PlayersPage {
     //    this.refresh();
     //    });
     //this.line();
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad PlayersPage');
+    // let team = JSON.parse(localStorage.getItem('groupUser'));
+    this.playaers_api.loadPlayers().then((res) => {
+      this.players = res;
+      console.log('response contacts' + res );
+      this.refresh();
+    });
   }
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});
@@ -170,7 +179,7 @@ export class PlayersPage {
 
   }
   updatePlayer(player,index){
-     let itemIndex = this.players.findIndex(x => x._id == player._id);
+     let itemIndex = this.players.findIndex(x => x.$key == player.$key);
      this.players[itemIndex].arrive = true;
      this.playaers_api.updatePlayer(player,{ arrive: true});
      this.refresh();
