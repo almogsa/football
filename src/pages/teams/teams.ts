@@ -1,4 +1,4 @@
-import { PlayersPage } from './../players/players';
+//import { PlayersPage } from './../players/players';
 import { Component } from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {PlayersApiProvider} from '../../providers/players-api/players-api';

@@ -4,7 +4,7 @@ import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import {PlayersPage} from '../players/players';
 import { SettingsPage } from "../settings/settings";
-import { TeamsPage } from "../teams/teams";
+
 
 @Component({
   templateUrl: 'tabs.html'
