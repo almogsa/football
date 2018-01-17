@@ -16,31 +16,25 @@ import {PlayersPage} from '../../pages/players/players';
 @Injectable()
 export class AuthProvider {
 
-  constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform,public navCtrl: NavController) {
+  constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform) {
     console.log('Hello AuthProvider Provider');
     //  this.user = this.afAuth.authState;
 
   }
 
-  login(): void {
+  login(): firebase.Promise<any> {
     if (this.platform.is('cordova')) {
       this.googlePlus.login({
         'webClientId': '397610494763-eu2gbde4hreoaitdsr6bg01s7up8ehqo.apps.googleusercontent.com',
         'offline': true
       }).then(res => {
-        firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-          .then(success => {
-            console.log("Firebase success: " + JSON.stringify(success));
-          })
-          .catch(error => console.log("Firebase failure: " + JSON.stringify(error)));
+     return   firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
+         
       }).catch(err => console.error("Error: ", err));
     } else {
 
-      this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
-        console.log('Login Success');
-        this.navCtrl.push(PlayersPage);
-      })
-        .catch(error => console.log('Login failed'));
+    return  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    
     }
   }
 

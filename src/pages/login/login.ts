@@ -1,3 +1,4 @@
+import { TeamsPage } from './../teams/teams';
 import { TabsPage } from './../tabs/tabs';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
@@ -24,7 +25,15 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   loginUser() {
-    return this.authService.login();
+     this.authService.login().then((result) => {console.log('result: ',result)
+     let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+     if (team && team.id) {
+      this.navCtrl.push(TabsPage);
+     }else {
+      this.navCtrl.push(TeamsPage);
+     }
+   
+    }).catch((error) => console.log('error to login ',error));
   }
   logoutUser() {
     localStorage.setItem('skipUser', 'false');
@@ -34,8 +43,13 @@ export class LoginPage {
 
   }
   skipLogin() {
-    this.navCtrl.push(TabsPage);
-
+    //this.navCtrl.push(TeamsPage);
+    let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+    if (team && team.id) {
+     this.navCtrl.push(TabsPage);
+    }else {
+     this.navCtrl.push(TeamsPage);
+    }
     //store the data in the key value format
     localStorage.setItem('skipUser', 'true');
 

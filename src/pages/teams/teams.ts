@@ -1,3 +1,4 @@
+import { PlayersPage } from './../players/players';
 import { Component } from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {PlayersApiProvider} from '../../providers/players-api/players-api';
@@ -53,9 +54,10 @@ export class TeamsPage {
 
   itemTapped($event, team){
     localStorage.setItem('groupUser',JSON.stringify(team));
-    this.nav.popToRoot().then(x => {
-      this.nav.push(TabsPage, team);
-    });
+    this.nav.push(TabsPage, team);
+    // this.nav.popToRoot().then(x => {
+    //   this.nav.push(PlayersPage, team);
+    // });
    // this.nav.setRoot(TabsPage, team);
   }
 
