@@ -316,6 +316,7 @@ var AboutPage = (function () {
         }
         this.penddingdPlayers = this.players.filter(function (player) { return player.arrive === false; });
         var sortedPlayer = Object.assign([], this.arrivedPlayers.sort(function (a, b) { return b.strength - a.strength; }));
+        var sortedPlayerDesc = this.arrivedPlayers.sort(function (a, b) { return a.strength - b.strength; });
         var total = this.arrivedPlayers.length;
         console.log('total : ' + total);
         var players_in_group = 4; // number of players in each team
@@ -325,19 +326,26 @@ var AboutPage = (function () {
         console.log('teams : ' + teams);
         var hasRemainder = false;
         var that = this;
+        var missingPlayersArray = [];
         if (remainder != 0) {
             if (missingPlayers > 0) {
                 for (var i = 0; i < missingPlayers; i++) {
                     var player = JSON.parse(JSON.stringify(sortedPlayer[i]));
                     player.name = 'miss' + i;
-                    player.strength = that.getAverageStrength(this.arrivedPlayers, teams, i);
-                    sortedPlayer.push(player);
+                    /*  if (missingPlayers === teams){
+                        player.strength = that.getAverageStrength(this.arrivedPlayers,teams,0);
+                      }*/
+                    player.strength = this.getAverageStrength(this.arrivedPlayers, teams, 0);
+                    missingPlayersArray.push(player);
+                    // sortedPlayer.push(player);
+                    // sortedPlayerDesc.push(player);
                 }
             }
             teams++;
             // hasRemainder = true;
         }
-        sortedPlayer = sortedPlayer.sort(function (a, b) { return b.strength - a.strength; });
+        sortedPlayer = Object.assign([], this.arrivedPlayers.sort(function (a, b) { return b.strength - a.strength; }));
+        sortedPlayerDesc = Object.assign([], this.arrivedPlayers.sort(function (a, b) { return a.strength - b.strength; }));
         var teamA = [];
         var teamB = [];
         var teamC = [];
@@ -348,32 +356,80 @@ var AboutPage = (function () {
         var iterations = 1;
         this.allTeams = [teamA, teamB, teamC, teamD, teamE, teamF];
         this.allTeams = this.allTeams.slice(0, -(this.allTeams.length - teams));
-        sortedPlayer.forEach(function (value, key) {
-            that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group, lastteam).push(value);
+        for (var _i = 0; _i < this.arrivedPlayers.length; _i++) {
+            if (iterations % 2 === 0) {
+                var player = this.getRandomPlayerWithSameStrength(sortedPlayerDesc, sortedPlayer);
+                that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group, lastteam).push(player);
+                //sortedPlayerDesc.splice(0,1)
+            }
+            else {
+                var player = this.getRandomPlayerWithSameStrength(sortedPlayer, sortedPlayerDesc);
+                that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group, lastteam).push(player);
+                //        sortedPlayer.splice(0,1)
+            }
             lastteam++;
             if (lastteam > teams - 1) {
                 lastteam = 0;
                 iterations++;
                 that.allTeams = that.allTeams.sort(function (a, b) { return a.eq - b.eq; });
             }
-            console.log('team A : ' + teamA.length);
-            console.log('team B : ' + teamB.length);
-            console.log('team C : ' + teamC.length);
-            console.log('team D : ' + teamD.length);
-            console.log('team E : ' + teamE.length);
-            console.log('last team: ' + lastteam);
             that.eqAll(that.allTeams);
-            // console.log('eq A: ' + teamA.eq);
-            // console.log('eq B: ' + teamB.eq);
-            // console.log('eq C: ' + teamC.eq);
-            // console.log('eq D: ' + teamD.eq);
-        });
+        }
+        for (var _i = 0; _i < missingPlayersArray.length; _i++) {
+            that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group, lastteam).push(missingPlayersArray[_i]);
+            lastteam++;
+            if (lastteam > teams - 1) {
+                lastteam = 0;
+                iterations++;
+                that.allTeams = that.allTeams.sort(function (a, b) { return a.eq - b.eq; });
+            }
+        }
+        /*sortedPlayer.forEach(function (value, key) {
+            that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group,lastteam).push(value);
+            lastteam++;
+            if (lastteam > teams - 1) {
+              lastteam = 0;
+              iterations++;
+              that.allTeams =  that.allTeams.sort((a,b) => a.eq - b.eq );
+          }
+          console.log('team A : ' + teamA.length);
+          console.log('team B : ' + teamB.length);
+          console.log('team C : ' + teamC.length);
+          console.log('team D : ' + teamD.length);
+          console.log('team E : ' + teamE.length);
+          console.log('last team: ' +lastteam);
+          that.eqAll(that.allTeams);
+          // console.log('eq A: ' + teamA.eq);
+          // console.log('eq B: ' + teamB.eq);
+          // console.log('eq C: ' + teamC.eq);
+          // console.log('eq D: ' + teamD.eq);
+    
+        })*/
         console.log(JSON.stringify(sortedPlayer));
         console.log('arrived players: ' + sortedPlayer.length);
-        that.teamPower(this.players);
+        //   that.teamPower(this.players);
+    };
+    AboutPage.prototype.getRandomPlayerWithSameStrength = function (players, players2) {
+        var strength = players[0].strength;
+        var player;
+        var num = players.filter(function (a) { return a.strength === strength; }).length;
+        if (num > 1) {
+            var random = Math.floor(Math.random() * num);
+            player = players[random];
+            players.splice(random, 1);
+            players2.splice(players2.findIndex(function (x) { return x.name === player.name; }), 1);
+        }
+        else {
+            player = players[0];
+            players2.splice(players2.findIndex(function (x) { return x.name === player.name; }), 1);
+            players.splice(0, 1);
+        }
+        return player;
     };
     AboutPage.prototype.getAverageStrength = function (players, teamNumber, iteration) {
+        players = players.sort(function (a, b) { return b.strength - a.strength; });
         var strength = players.map(function (player) { return player.strength; }).slice(iteration * teamNumber, (iteration + 1) * teamNumber).reduce(function (accumulator, currentValue) { return accumulator + currentValue; }) / teamNumber;
+        //let strength = players.map(player => player.strength).slice(iteration*teamNumber,1)
         console.log('strength** ' + strength);
         return strength;
     };
@@ -383,8 +439,9 @@ var AboutPage = (function () {
         //   _allTeams = this.allTeams.sort(this.dynamicSort('-eq'));
         //     return _allTeams[lastteam];
         // }
+        _allTeams = iterations % 2 === 0 ? this.allTeams.sort(function (a, b) { return b.eq - a.eq; }) : this.allTeams.sort(function (a, b) { return a.eq - b.eq; });
+        ;
         _allTeams = this.allTeams.sort(function (a, b) { return a.length - b.length; });
-        _allTeams = this.allTeams.sort(function (a, b) { return a.eq - b.eq; });
         return _allTeams[0];
     };
     AboutPage.prototype.dynamicSort = function (property) {

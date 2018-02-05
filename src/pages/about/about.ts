@@ -51,50 +51,85 @@ export class AboutPage {
     this.navCtrl.push(PlayerDetailsPage, {player});
   }
   line(){
-    
+
     this.arrivedPlayers =  this.players.filter(function(player){ return player.arrive === true});
     if (this.arrivedPlayers.length < 8){
       return;
     }
     this.penddingdPlayers = this.players.filter(function(player){ return player.arrive === false});
-    var  sortedPlayer = Object.assign([],this.arrivedPlayers.sort( function(a,b){ return b.strength - a.strength})) ;
-    var total = this.arrivedPlayers.length;
+    let  sortedPlayer = Object.assign([],this.arrivedPlayers.sort( (a,b) =>  b.strength - a.strength)) ;
+    let sortedPlayerDesc =  this.arrivedPlayers.sort( (a,b) => a.strength - b.strength);
+    let total = this.arrivedPlayers.length;
     console.log('total : ' + total);
-    var players_in_group =  4; // number of players in each team
-    var remainder = total % players_in_group;
-    var missingPlayers = players_in_group - remainder;
+    let players_in_group =  4; // number of players in each team
+    let remainder = total % players_in_group;
+    let missingPlayers = players_in_group - remainder;
 
-    var teams = (total - remainder) / players_in_group;
+    let teams = (total - remainder) / players_in_group;
     console.log('teams : ' + teams);
-    var hasRemainder = false;
-    var that = this;
-
+    let hasRemainder = false;
+    let that = this;
+  let missingPlayersArray = [];
     if (remainder != 0) {
       if(missingPlayers > 0){
-        for (var i = 0; i < missingPlayers; i++) { 
-          var player =  JSON.parse(JSON.stringify(sortedPlayer[i]));
+        for (let i = 0; i < missingPlayers; i++) {
+          let player =  JSON.parse(JSON.stringify(sortedPlayer[i]));
           player.name = 'miss'+i;
-          player.strength = that.getAverageStrength(this.arrivedPlayers,teams,i);
-          sortedPlayer.push(player);
+        /*  if (missingPlayers === teams){
+            player.strength = that.getAverageStrength(this.arrivedPlayers,teams,0);
+          }*/
+          player.strength = this.getAverageStrength(this.arrivedPlayers,teams,0);
+          missingPlayersArray.push(player);
+         // sortedPlayer.push(player);
+         // sortedPlayerDesc.push(player);
         }
       }
         teams++;
        // hasRemainder = true;
     }
-    sortedPlayer =  sortedPlayer.sort( function(a,b){ return b.strength - a.strength});
-    var  teamA = [];
-    var  teamB = [];
-    var  teamC = [];
-    var  teamD = [];
-    var  teamE = [];
-    var  teamF = [];
-    var lastteam = 0;
-    var iterations = 1;
+    sortedPlayer =  Object.assign([],this.arrivedPlayers.sort( (a,b) =>  b.strength - a.strength)) ;
+    sortedPlayerDesc =  Object.assign([],this.arrivedPlayers.sort( (a,b) =>  a.strength - b.strength)) ;
+    let  teamA = [];
+    let  teamB = [];
+    let  teamC = [];
+    let  teamD = [];
+    let  teamE = [];
+    let  teamF = [];
+    let lastteam = 0;
+    let iterations = 1;
     this.allTeams = [teamA,teamB,teamC,teamD,teamE,teamF];
     this.allTeams = this.allTeams.slice(0, -(this.allTeams.length - teams));
-   
-   
-    sortedPlayer.forEach(function (value, key) {
+
+    for(let _i=0; _i < this.arrivedPlayers.length; _i++){
+      if (iterations % 2 === 0 ){
+        let player =this.getRandomPlayerWithSameStrength(sortedPlayerDesc,sortedPlayer);
+        that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group,lastteam).push(player);
+        //sortedPlayerDesc.splice(0,1)
+      } else {
+        let player =this.getRandomPlayerWithSameStrength(sortedPlayer,sortedPlayerDesc);
+        that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group,lastteam).push(player);
+//        sortedPlayer.splice(0,1)
+
+      }
+      lastteam++;
+      if (lastteam > teams - 1) {
+        lastteam = 0;
+        iterations++;
+        that.allTeams =  that.allTeams.sort((a,b) => a.eq - b.eq );
+      }
+      that.eqAll(that.allTeams);
+
+    }
+    for(let _i=0; _i < missingPlayersArray.length; _i++){
+      that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group,lastteam).push(missingPlayersArray[_i]);
+      lastteam++;
+      if (lastteam > teams - 1) {
+        lastteam = 0;
+        iterations++;
+        that.allTeams =  that.allTeams.sort((a,b) => a.eq - b.eq );
+      }
+    }
+    /*sortedPlayer.forEach(function (value, key) {
         that.getTeamtoAddPlayer(that.allTeams, iterations, hasRemainder, players_in_group,lastteam).push(value);
         lastteam++;
         if (lastteam > teams - 1) {
@@ -114,53 +149,78 @@ export class AboutPage {
       // console.log('eq C: ' + teamC.eq);
       // console.log('eq D: ' + teamD.eq);
 
-    })
+    })*/
 
 
     console.log(JSON.stringify(sortedPlayer));
     console.log('arrived players: ' +  sortedPlayer.length);
-    that.teamPower(this.players);
+ //   that.teamPower(this.players);
+
+  }
+  getRandomPlayerWithSameStrength(players,players2){
+    let strength = players[0].strength;
+    let player;
+    let num = players.filter(a => a.strength === strength).length;
+    if (num > 1 ){
+      let random = Math.floor(Math.random() * num);
+      player =  players[random];
+      players.splice(random,1);
+      players2.splice(players2.findIndex(x => x.name === player.name),1);
+    } else {
+      player=players[0];
+      players2.splice(players2.findIndex(x => x.name === player.name),1);
+      players.splice(0,1);
+
+    }
+    return player;
+
+
 
   }
   getAverageStrength(players,teamNumber,iteration){
-    var strength = players.map(player => player.strength).slice(iteration*teamNumber,(iteration+1)* teamNumber).reduce((accumulator , currentValue) => accumulator + currentValue) / teamNumber;
+    players = players.sort((a,b) => b.strength - a.strength);
+    let strength = players.map(player => player.strength).slice(iteration*teamNumber,(iteration+1)* teamNumber).reduce((accumulator , currentValue) => accumulator + currentValue) / teamNumber;
+    //let strength = players.map(player => player.strength).slice(iteration*teamNumber,1)
     console.log('strength** ' + strength);
     return strength;
   }
   getTeamtoAddPlayer(index, iterations, hasRemainder, players_in_group,lastteam) {
-    
-    var _allTeams = this.allTeams;
+
+    let _allTeams = this.allTeams;
     // if ((iterations == players_in_group) && hasRemainder) {
     //   _allTeams = this.allTeams.sort(this.dynamicSort('-eq'));
-        
+
     //     return _allTeams[lastteam];
     // }
-    _allTeams = this.allTeams.sort(function(a,b){return a.length - b.length});
-    _allTeams = this.allTeams.sort(function(a,b){return a.eq - b.eq});
+
+
+    _allTeams = iterations%2 ===0 ?  this.allTeams.sort((a,b) =>  b.eq - a.eq) : this.allTeams.sort((a,b) =>  a.eq - b.eq); ;
+     _allTeams = this.allTeams.sort(function(a,b){return a.length - b.length});
+
     return _allTeams[0];
 }
  dynamicSort(property) {
-  var sortOrder = 1;
+  let sortOrder = 1;
   if (property[0] === "-") {
       sortOrder = -1;
       property = property.substr(1);
   }
   return function (a, b) {
-      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
       return result * sortOrder;
   }
   }
   teamPower(team){
     console.log('team : ' + team.map(function(a){return a.name}));
-    var sum =  team.reduce(function(a, b) { return a + b.strength; }, 0);
+    let sum =  team.reduce(function(a, b) { return a + b.strength; }, 0);
     console.log( 'team total strngth : ' + sum);
     return sum;
   }
   eqAll(teams) {
-    var that = this;
+    let that = this;
     teams.forEach(function (team, key) {
         team.eq = that.teamPower(team);
     });
   }
-  
+
 }
