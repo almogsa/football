@@ -15,12 +15,11 @@ players:any;
   ionViewDidEnter() {
     console.log('ionViewDidLoad UsersPage');
     // let team = JSON.parse(localStorage.getItem('groupUser'));
-     this.playaers_api.loadPlayers().then((res) => { 
-       this.players = res;
-       console.log('response contacts' + res );
-      
-       });
-    //this.line();
+    this.playaers_api.load2(null).subscribe(data=> {
+      console.log('SUBSCRIBE load2' + data);
+      this.players = data;
+    });
+
   }
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});

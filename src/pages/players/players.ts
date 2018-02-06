@@ -55,11 +55,11 @@ export class PlayersPage {
   ionViewDidEnter() {
     console.log('ionViewDidLoad PlayersPage');
     // let team = JSON.parse(localStorage.getItem('groupUser'));
-    this.playaers_api.loadPlayers().then((res) => {
+  /*  this.playaers_api.loadPlayers().then((res) => {
       this.players = res;
       console.log('response contacts' + res );
       this.refresh();
-    });
+    });*/
   }
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});

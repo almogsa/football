@@ -62,14 +62,13 @@ var PlayersPage = (function () {
         //this.line();
     };
     PlayersPage.prototype.ionViewDidEnter = function () {
-        var _this = this;
         console.log('ionViewDidLoad PlayersPage');
         // let team = JSON.parse(localStorage.getItem('groupUser'));
-        this.playaers_api.loadPlayers().then(function (res) {
-            _this.players = res;
-            console.log('response contacts' + res);
-            _this.refresh();
-        });
+        /*  this.playaers_api.loadPlayers().then((res) => {
+            this.players = res;
+            console.log('response contacts' + res );
+            this.refresh();
+          });*/
     };
     PlayersPage.prototype.goToDetails = function (player) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
@@ -291,20 +290,24 @@ var AboutPage = (function () {
     AboutPage.prototype.ionViewDidLoad = function () {
         var _this = this;
         console.log('ionViewDidLoad UsersPage');
-        this.playaers_api.loadPlayers().then(function (data) {
-            console.log('Line Page get players load2' + data);
+        /*    this.playaers_api.loadPlayers().then(data=>{
+              console.log('Line Page get players load2' + data);
+              this.players=data;
+              this.line();
+            })*/
+        this.playaers_api.load2(null).subscribe(function (data) {
+            console.log('SUBSCRIBE load2' + data);
             _this.players = data;
-            _this.line();
         });
     };
     AboutPage.prototype.ionViewDidEnter = function () {
-        var _this = this;
         console.log('ionViewDidEnter UsersPage');
-        this.playaers_api.loadPlayers().then(function (data) {
-            console.log('Line Page get players load2' + data);
-            _this.players = data;
-            _this.line();
-        });
+        this.line();
+        /*    this.playaers_api.loadPlayers().then(data=>{
+              console.log('Line Page get players load2' + data);
+              this.players=data;
+              this.line();
+            })*/
     };
     AboutPage.prototype.goToDetails = function (player) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
@@ -511,11 +514,10 @@ var ContactPage = (function () {
         var _this = this;
         console.log('ionViewDidLoad UsersPage');
         // let team = JSON.parse(localStorage.getItem('groupUser'));
-        this.playaers_api.loadPlayers().then(function (res) {
-            _this.players = res;
-            console.log('response contacts' + res);
+        this.playaers_api.load2(null).subscribe(function (data) {
+            console.log('SUBSCRIBE load2' + data);
+            _this.players = data;
         });
-        //this.line();
     };
     ContactPage.prototype.goToDetails = function (player) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_0__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });

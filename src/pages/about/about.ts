@@ -30,22 +30,29 @@ export class AboutPage {
     });
 
   }
-  ionViewDidLoad() {
+  ionViewDidLoad() { // like ngOninit
     console.log('ionViewDidLoad UsersPage');
-    this.playaers_api.loadPlayers().then(data=>{
-
+/*    this.playaers_api.loadPlayers().then(data=>{
       console.log('Line Page get players load2' + data);
       this.players=data;
       this.line();
+    })*/
+
+    this.playaers_api.load2(null).subscribe(data=>{
+      console.log('SUBSCRIBE load2' + data);
+      this.players=data;
+
+
     })
   }
   ionViewDidEnter() {
     console.log('ionViewDidEnter UsersPage');
-    this.playaers_api.loadPlayers().then(data=>{
+    this.line();
+/*    this.playaers_api.loadPlayers().then(data=>{
       console.log('Line Page get players load2' + data);
       this.players=data;
       this.line();
-    })
+    })*/
   }
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});
