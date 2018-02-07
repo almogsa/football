@@ -62,6 +62,7 @@ export class PlayersApiProvider {
         return Promise.resolve({
           authData,
           userExists: dataSnapshot.exists(),
+          userDetails:dataSnapshot.val()
         });
       });
   }

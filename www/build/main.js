@@ -312,6 +312,9 @@ var AboutPage = (function () {
     AboutPage.prototype.goToDetails = function (player) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
     };
+    AboutPage.prototype.refreshLine = function () {
+        this.line();
+    };
     AboutPage.prototype.line = function () {
         this.arrivedPlayers = this.players.filter(function (player) { return player.arrive === true; });
         if (this.arrivedPlayers.length < 8) {
@@ -474,7 +477,7 @@ var AboutPage = (function () {
 }());
 AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Line\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <div *ngIf="arrivedPlayers.length < 8" style="text-align:center">Not enough players to begin a match</div>\n\n    <div *ngIf="arrivedPlayers.length > 7">\n\n    <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">\n\n        <div style="flex:1" class="" *ngFor="let player of team"   >\n\n          <div class="child"  (click)="goToDetails(player)">\n\n            <img [src]="player?.img || default_img" class="user-picture image" >\n\n            <div class="user-name"> {{player?.name}}</div>\n\n          </div>\n\n       </div>\n\n       <ion-badge item-right>{{teamPower(team).toFixed(0)}}</ion-badge>\n\n      </div>  \n\n    </div> \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/
+        selector: 'page-about',template:/*ion-inline-start:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n\n    <ion-title>Line\n\n        <button style="float:right" ion-button item-right small color="light" (click)="refreshLine()">Refresh</button></ion-title>\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <div *ngIf="arrivedPlayers.length < 8" style="text-align:center">Not enough players to begin a match</div>\n    <div *ngIf="arrivedPlayers.length > 7">\n    <div class="container" *ngFor="let team of allTeams" style="border-bottom: 1px solid #ebeef2;">\n        <div style="flex:1" class="" *ngFor="let player of team"   >\n          <div class="child"  (click)="goToDetails(player)">\n            <img [src]="player?.img || default_img" class="user-picture image" >\n            <div class="user-name"> {{player?.name}}</div>\n          </div>\n       </div>\n       <ion-badge item-right>{{teamPower(team).toFixed(0)}}</ion-badge>\n      </div>\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Dev\ionic-tabs-app\ggg\src\pages\about\about.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_players_api_players_api__["a" /* PlayersApiProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]])
 ], AboutPage);
@@ -573,6 +576,15 @@ var SettingsPage = (function () {
         this.admin = false;
         this.user = {};
     }
+    SettingsPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.player = {};
+        //console.log('ionViewDidLoad PlayerDetailsPage');
+        //this.player = this.navParams.get('player')
+        this.playaers_api.checkIfUserExists(this.authService.getUserAuth()).then(function (data) { return _this.player = data.userDetails; });
+        console.log('Player details: ' + JSON.stringify(this.player));
+        //  this.players_api.getPlayer(player);
+    };
     SettingsPage.prototype.ionViewDidEnter = function () {
         console.log('settings did enter');
         this.isAdmin();
@@ -607,13 +619,10 @@ var SettingsPage = (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__player_details_player_details__["a" /* PlayerDetailsPage */], { player: player });
     };
     SettingsPage.prototype.isAdmin = function () {
-        var _this = this;
-        this.authService.getAuth().then(function (isAdmin) {
-            _this.admin = isAdmin;
-        });
-        // if(user.name && user.name ==='admin' && user.password==='admin'){
-        //   this.admin=true;
-        // }
+        this.admin = this.player.admin;
+        /*  this.authService.getAuth().then(isAdmin => {
+            this.admin=isAdmin;
+          })*/
     };
     SettingsPage.prototype.logOut = function () {
         localStorage.setItem('skipUser', 'false');
@@ -843,6 +852,7 @@ var PlayersApiProvider = (function () {
             return Promise.resolve({
                 authData: authData,
                 userExists: dataSnapshot.exists(),
+                userDetails: dataSnapshot.val()
             });
         });
     };
@@ -1474,6 +1484,7 @@ var AuthProvider = (function () {
         this.googlePlus = googlePlus;
         this.platform = platform;
         console.log('Hello AuthProvider Provider');
+        this.initUserAuth();
         //  this.user = this.afAuth.authState;
     }
     AuthProvider.prototype.login = function () {
@@ -1497,28 +1508,26 @@ var AuthProvider = (function () {
         }).catch(function (error) {
             console.log(error);
         });
-        // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
-        //   then(() => {
-        //     console.log('Login Success');
-        //     // this.navCtrl.push(PlayersPage); // provider can't import nav provider
-        //   })
-        //   .catch(error => console.log('Login failed'));
     };
     AuthProvider.prototype.logout = function () {
         return this.afAuth.auth.signOut();
         //  this.navCtrl.push(LoginPage);
     };
-    AuthProvider.prototype.checkPlayerExists = function () {
-    };
     AuthProvider.prototype.getAuth = function () {
+        if (this.userAuth) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    AuthProvider.prototype.getUserAuth = function () {
+        return this.userAuth;
+    };
+    AuthProvider.prototype.initUserAuth = function () {
         var _this = this;
-        return new Promise(function (resolve) {
-            _this.afAuth.authState.take(1).subscribe(function (auth) {
-                if (!auth)
-                    resolve(false);
-                else
-                    resolve(true);
-            });
+        this.afAuth.authState.subscribe(function (auth) {
+            _this.userAuth = auth;
         });
     };
     return AuthProvider;

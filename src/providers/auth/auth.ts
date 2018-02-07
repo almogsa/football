@@ -1,4 +1,4 @@
-import {NavController, Platform} from 'ionic-angular';
+import {Platform} from 'ionic-angular';
 import {GooglePlus} from '@ionic-native/google-plus';
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
@@ -16,8 +16,10 @@ import {PlayersPage} from '../../pages/players/players';
 @Injectable()
 export class AuthProvider {
 
+  userAuth:any;
   constructor(public http: Http, public afAuth: AngularFireAuth, public googlePlus: GooglePlus, public platform: Platform) {
     console.log('Hello AuthProvider Provider');
+    this.initUserAuth();
     //  this.user = this.afAuth.authState;
 
   }
@@ -29,12 +31,12 @@ export class AuthProvider {
         'offline': true
       }).then(res => {
      return   firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-         
+
       }).catch(err => console.error("Error: ", err));
     } else {
 
     return  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    
+
     }
   }
 
@@ -48,12 +50,7 @@ export class AuthProvider {
       console.log(error);
     });
 
-    // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).
-    //   then(() => {
-    //     console.log('Login Success');
-    //     // this.navCtrl.push(PlayersPage); // provider can't import nav provider
-    //   })
-    //   .catch(error => console.log('Login failed'));
+
   }
 
   logout() {
@@ -61,17 +58,20 @@ export class AuthProvider {
     //  this.navCtrl.push(LoginPage);
   }
 
-  checkPlayerExists(){
-
-  }
   getAuth(): any {
-    return new Promise(resolve => {
-      this.afAuth.authState.take(1).subscribe(auth => {
-        if (!auth)
-          resolve(false);
-        else
-          resolve(true);
-      });
+    if (this.userAuth){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  getUserAuth(){
+    return this.userAuth;
+  }
+  initUserAuth() {
+    this.afAuth.authState.subscribe(auth => {
+      this.userAuth=auth;
     })
   }
 }

@@ -57,6 +57,9 @@ export class AboutPage {
   goToDetails(player:any){
     this.navCtrl.push(PlayerDetailsPage, {player});
   }
+  refreshLine(){
+    this.line();
+  }
   line(){
 
     this.arrivedPlayers =  this.players.filter(function(player){ return player.arrive === true});

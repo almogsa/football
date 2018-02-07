@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Line
-    </ion-title>
+
+    <ion-title>Line
+
+        <button style="float:right" ion-button item-right small color="light" (click)="refreshLine()">Refresh</button></ion-title>
+
   </ion-navbar>
 </ion-header>
 
@@ -17,6 +19,6 @@
           </div>
        </div>
        <ion-badge item-right>{{teamPower(team).toFixed(0)}}</ion-badge>
-      </div>  
-    </div> 
+      </div>
+    </div>
 </ion-content>

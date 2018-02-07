@@ -2,7 +2,7 @@ import { TeamsPage } from './../teams/teams';
 import { LoginPage } from './../login/login';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
 import { PlayerDetailsPage } from "../player-details/player-details";
@@ -14,7 +14,19 @@ import { PlayerDetailsPage } from "../player-details/player-details";
 export class SettingsPage {
   admin:boolean = false;
   user:any={};
+  player:any;
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,public  playaers_api : PlayersApiProvider,public authService: AuthProvider) {
+
+  }
+  ionViewDidLoad() {
+    this.player = {};
+    //console.log('ionViewDidLoad PlayerDetailsPage');
+    //this.player = this.navParams.get('player')
+
+    this.playaers_api.checkIfUserExists(this.authService.getUserAuth()).then(data => this.player = data.userDetails);
+    console.log('Player details: ' + JSON.stringify(this.player))
+
+    //  this.players_api.getPlayer(player);
 
   }
   ionViewDidEnter(){
@@ -50,18 +62,16 @@ export class SettingsPage {
     this.navCtrl.push(PlayerDetailsPage, {player});
   }
   isAdmin(){
-    this.authService.getAuth().then(isAdmin => {
+     this.admin = this.player.admin;
+  /*  this.authService.getAuth().then(isAdmin => {
       this.admin=isAdmin;
-    })
+    })*/
 
-    // if(user.name && user.name ==='admin' && user.password==='admin'){
-    //   this.admin=true;
-    // }
- 
+
   }
   logOut() {
     localStorage.setItem('skipUser', 'false');
-    
+
     this.authService.logout().then(x => console.log('log out from settings page'));
   }
   goToLogin(){
@@ -70,7 +80,7 @@ export class SettingsPage {
   changeTeam(){
     localStorage.removeItem('groupUser');
     this.navCtrl.push(TeamsPage);
-   
+
   }
 
 }
