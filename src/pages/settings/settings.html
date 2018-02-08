@@ -19,11 +19,11 @@
       <button ion-button (click)="isAdmin(user)" color="primary" block>Sign In</button>
     </div>
   </ion-list>
-  <div *ngIf="admin">
-    <p>
+  <div>
+    <p *ngIf="admin">
       <button ion-button full (click)="showConfirm()"> Reset Players </button>
     </p>
-    <p>
+    <p *ngIf="admin">
       <button ion-button full (click)="goToDetails({})"> Add New Player </button>
     </p>
     <p>
@@ -32,8 +32,11 @@
     <p>
       <button ion-button full (click)="changeTeam()"> Change Team </button>
     </p>
-    
+    <p>
+      <button ion-button full (click)="goToLogin()"> Login</button>
+    </p>
+
   </div>
 
-  <div  *ngIf="!admin" (click)="goToLogin()">You don't have a permission to view this page. <a>go to login page</a> </div>
+  <div  *ngIf="false" (click)="goToLogin()">You don't have a permission to view this page. <a>go to login page</a> </div>
 </ion-content>

@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {PlayersApiProvider } from '../../providers/players-api/players-api';
 import { PlayerDetailsPage } from "../player-details/player-details";
 import { Events } from 'ionic-angular';
+import {AuthProvider} from "../../providers/auth/auth";
 
 @Component({
   selector: 'page-about',
@@ -14,11 +15,14 @@ export class AboutPage {
   originalUsers:any[];
  // players=[{"_id":"5847a1b0d1bcdd000427952a","arrive":false,"name":"יוסי","number":83,"strength":10,"__v":0,"index":0},{"_id":"5925640914729300048b038441","arrive":true,"name":"חבר-22","number":0,"strength":4,"__v":0,"index":0},{"_id":"5925640914729300048b0381","arrive":false,"name":"חבר-1","number":0,"strength":1,"__v":0,"index":0},{"_id":"5847a177d1bcdd0004279526","arrive":false,"name":"דרור","number":12,"strength":3,"__v":0,"index":0},{"_id":"5847a1a2d1bcdd0004279529","arrive":true,"name":"אבי","number":3,"strength":5,"__v":0,"index":0},{"_id":"592563e514729300048b0380","arrive":true,"name":"יואל","number":4.5,"strength":1,"__v":0,"index":1},{"_id":"5847a109d1bcdd0004279522","arrive":true,"name":"ירון","number":11,"strength":6,"__v":0,"index":1},{"_id":"5846f55f8675290004db6ea6","arrive":true,"name":"חזי","number":2,"strength":5.5,"__v":0,"index":1},{"_id":"5847a1c5d1bcdd000427952b","arrive":true,"name":"רן","number":5,"strength":6.2,"__v":0,"index":2},{"_id":"5847a18ad1bcdd0004279527","arrive":true,"name":"בני","number":4,"strength":5,"__v":0,"index":3},{"_id":"5847a162d1bcdd0004279524","arrive":true,"name":"אלון קורן","number":7,"strength":7,"__v":0,"index":4},{"_id":"5847a152d1bcdd0004279523","arrive":true,"name":"אלון ברלין","number":10,"strength":8,"__v":0,"index":5},{"_id":"5847a195d1bcdd0004279528","arrive":true,"name":"קובי","number":8,"strength":5,"__v":0,"index":6},{"_id":"5847a105d1bcdd0004279521","arrive":true,"name":"דובי","number":12,"strength":7,"__v":0,"index":7},{"_id":"5842c0cfd0cb15000453689e","arrive":true,"name":"אייל","number":99,"strength":6.5,"remark":"","phone":"55555","__v":0,"index":8},{"_id":"5847a16ed1bcdd0004279525","arrive":true,"name":"טל","number":12,"strength":4,"__v":0,"index":9},{"_id":"584325a10d5daa00041c0ca2","arrive":true,"name":"אלמוג","number":9,"strength":5.2,"phone":"0545597072","__v":0,"index":10}]
  players:any;
+ admin:boolean=false;
   allTeams = [];
   arrivedPlayers=[];
   penddingdPlayers=[];
+  player:any;
+
   default_img = '../assets/empty_profile.png'
-  constructor(public navCtrl: NavController,public playaers_api: PlayersApiProvider,public events: Events) {
+  constructor(public navCtrl: NavController,public playaers_api: PlayersApiProvider,public events: Events,public auth :AuthProvider) {
     // let playersRef = this.firebase.database.ref(baseURL);
     // playersRef.on('child_changed', function (snap) {
     //   console.log('****CHILD CHANGED***');
@@ -32,6 +36,12 @@ export class AboutPage {
   }
   ionViewDidLoad() { // like ngOninit
     console.log('ionViewDidLoad UsersPage');
+    if (this.auth.getUserAuth()) {
+      this.playaers_api.checkIfUserExists(this.auth.getUserAuth()).then(data => {
+        this.player = data.userDetails;
+        this.admin = data.userDetails.admin
+      });
+    }
 /*    this.playaers_api.loadPlayers().then(data=>{
       console.log('Line Page get players load2' + data);
       this.players=data;

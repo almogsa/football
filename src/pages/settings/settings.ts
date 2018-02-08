@@ -22,9 +22,10 @@ export class SettingsPage {
     this.player = {};
     //console.log('ionViewDidLoad PlayerDetailsPage');
     //this.player = this.navParams.get('player')
-
-    this.playaers_api.checkIfUserExists(this.authService.getUserAuth()).then(data => this.player = data.userDetails);
-    console.log('Player details: ' + JSON.stringify(this.player))
+    if(this.authService.getUserAuth()) {
+      this.playaers_api.checkIfUserExists(this.authService.getUserAuth()).then(data => this.player = data.userDetails);
+      console.log('Player details: ' + JSON.stringify(this.player))
+    }
 
     //  this.players_api.getPlayer(player);
 
