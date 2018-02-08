@@ -19,6 +19,7 @@ import { NavController, NavParams } from 'ionic-angular';
 export class PlayerDetailsPage {
 
   player:any={};
+  admin:boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams , public players_api : PlayersApiProvider,public auth : AuthProvider) {
     this.player = {};
    // this.player = this.navParams.data;
@@ -29,15 +30,19 @@ export class PlayerDetailsPage {
     console.log('ionViewDidLoad PlayerDetailsPage');
     this.player = this.navParams.get('player')
     console.log('Player details: ' + JSON.stringify(this.player))
+    if(this.auth.getUserAuth()) {
+      this.players_api.checkIfUserExists(this.auth.getUserAuth()).then(data => this.admin = data.userDetails.admin);
+      console.log('Player details: ' + JSON.stringify(this.player))
+    }
   //  this.players_api.getPlayer(player);
-    
+
   }
   updatePlayer(player){
     console.log('Player ::: '+ JSON.stringify(player))
     this.players_api.updatePlayer(player,player).then(x => {
       this.navCtrl.pop();
     });
-   
+
   }
   addNewPlayer(player){
     console.log('Adding new player : '+ JSON.stringify(player))
@@ -50,8 +55,8 @@ export class PlayerDetailsPage {
     this.auth.logout().then(x =>{
       this.players_api.removePlayer(player);
     })
-    
+
   }
-  
+
 
 }
