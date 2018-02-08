@@ -31,8 +31,11 @@ export class PlayerDetailsPage {
     this.player = this.navParams.get('player')
     console.log('Player details: ' + JSON.stringify(this.player))
     if(this.auth.getUserAuth()) {
-      this.players_api.checkIfUserExists(this.auth.getUserAuth()).then(data => this.admin = data.userDetails.admin);
-      console.log('Player details: ' + JSON.stringify(this.player))
+      this.players_api.checkIfUserExists(this.auth.getUserAuth()).then(data => {
+        this.admin = data.userDetails.admin;
+        console.log('Player details admin?: ' + JSON.stringify(this.admin))
+      });
+
     }
   //  this.players_api.getPlayer(player);
 
