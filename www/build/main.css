@@ -25364,6 +25364,15 @@ page-players .avatar {
   box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0, 0, 0, 0.2);
 }
 
+page-players .avatar-injured {
+  height: 27px;
+  width: 30px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2); */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 2px #fcdb1f, 0 0px 5px 4px #fcdb1f;
+}
+
 page-players .container {
   -webkit-box-align: center;
   -webkit-align-items: center;

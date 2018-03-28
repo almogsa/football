@@ -17,6 +17,10 @@
           <ion-label> Arrive</ion-label>
           <ion-toggle  [(ngModel)]="player.arrive"  (ionChange)="updatePlayer(player)" ></ion-toggle>
         </ion-item>
+    <ion-item>
+      <ion-label> Injured</ion-label>
+      <ion-toggle  [(ngModel)]="player.injured"  (ionChange)="updatePlayer(player)" ></ion-toggle>
+    </ion-item>
         <ion-item *ngIf="admin">
             <ion-label> Admin</ion-label>
             <ion-toggle  [(ngModel)]="player.admin"></ion-toggle>
@@ -52,7 +56,7 @@
   </ion-list>
   <button *ngIf="player.index === 0 || player.index > 0" ion-button full (click)="updatePlayer(player)">Update</button>
   <button *ngIf="player.index == undefined" ion-button full (click)="addNewPlayer(player)">Add New Player</button>
-  <button *ngIf="player.index === 0 || player.index > 0"  ion-button block color="danger"  (click)="deletePlayer(player)">Delete Player</button>
+  <button *ngIf="(player.index === 0 || player.index > 0) && admin"  ion-button block color="danger"  (click)="deletePlayer(player)">Delete Player</button>
 
 
 </ion-content>

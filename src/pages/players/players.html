@@ -8,7 +8,7 @@
 
   <ion-navbar>
       <button ion-button icon-only menuToggle>
-          <ion-icon name="menu"></ion-icon> 
+          <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>players
     <ion-badge>{{arrivedPlayers.length}}</ion-badge>
@@ -25,27 +25,27 @@
             <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
             <div> {{player2.name}}</div>
           </div>
-          </div>  
+          </div>
         <!-- <div class="" style="width: 70%;  height: 58px;margin: 0 auto;display:flex">
             <ion-scroll scrollX="true" class="wide-as-needed" [ngStyle]="{'left': '70px'}" style="position: relative;
             top: 5px;
             margin: 0px auto;
             width: 100%;
            ">
-               
-              </ion-scroll> 
-            
+
+              </ion-scroll>
+
         </div> -->
         </div>
-  
+
   <div [style.height]="arrivedPlayers.length > 10 ? 'calc(100% - 108px)' : 'calc(100% - 55px)'"  class="players-main">
 
-  
+
     <div class="first-player">
         <div class="item" *ngFor="let player2 of arrivedPlayers.slice(0,1)" >
         <div class="child" (click)="goToDetails(player2)">
             <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" src="https://graph.facebook.com/258153891344790/picture">
-            <div> {{player2.name}}</div>  
+            <div> {{player2.name}}</div>
           </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
       <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
       <div> {{player2.name}}</div>
     </div>
-    </div>   
+    </div>
   </div>
   <div class="container">
     <div class="item" *ngFor="let player2 of arrivedPlayers.slice(5,9)" >
@@ -63,19 +63,19 @@
       <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
       <div> {{player2.name}}</div>
     </div>
-    </div>   
+    </div>
     <div class="">
         <div class="item" *ngFor="let player2 of arrivedPlayers.slice(9,10)" >
         <div class="child" (click)="goToDetails(player2)">
             <img [src]="player2.img || default_img" class="radius avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2)" >
-            <div> {{player2.name}}</div>  
+            <div> {{player2.name}}</div>
           </div>
     </div>
-  </div> 
   </div>
- 
+  </div>
 
-  
+
+
 
 </div>
 
@@ -83,10 +83,10 @@
 <div class=" bench-background" style="  margin-bottom: -5px;flex-wrap:wrap" >
     <div class="item-bench" *ngFor="let player2 of penddingdPlayers"   (click)="updatePlayer(player2,$index)">
         <div class="child">
-        <img [src]="player2.img || default_img" class="radius avatar" >
+        <img [src]="player2.img || default_img" class="radius" [class]="player2.injured ? 'avatar-injured' : 'avatar'">
         <div> {{player2.name}}</div>
       </div>
-      </div>  
+      </div>
 
 
     <!-- <div class="" style="width: 80%;  height: 58px;margin: 0 auto;display:flex">
@@ -95,12 +95,12 @@
         margin: 0px auto;
         width: 100%;
        ">
-          
-          </ion-scroll> 
-        
+
+          </ion-scroll>
+
     </div> -->
     </div>
-    
+
 
 
 

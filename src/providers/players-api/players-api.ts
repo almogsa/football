@@ -121,6 +121,7 @@ export class PlayersApiProvider {
       arrive: false,
       index: 0,
       strength:50,
+      injured:false,
       name: auth.displayName,
       email: auth.email,
       img: auth.providerData[0].photoURL,

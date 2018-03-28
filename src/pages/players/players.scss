@@ -35,7 +35,7 @@ page-players {
         display: inline-block;
         padding: 5px;
     }
-   
+
     .wide-as-needed {
         overflow: scroll;
         white-space: nowrap;
@@ -43,14 +43,14 @@ page-players {
     //    display: flex;
     }
 
-    
-    
+
+
     .first-player{
         position: relative;
         top:40px;
     }
     .avatar {
-        
+
         height: 27px;
         width: 30px;
         -webkit-border-radius: 50%;
@@ -61,6 +61,17 @@ page-players {
         /* box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2); */
         box-shadow: 0 0 0 2px #fff, 0 0 0 2px #999, 0 0px 5px 4px rgba(0,0,0,.2);
     }
+  .avatar-injured {
+    height: 27px;
+    width: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+    /* box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2); */
+    box-shadow: 0 0 0 2px #fff, 0 0 0 2px #fcdb1f, 0 0px 5px 4px rgb(252, 219, 31);
+  }
 
     .container{
         align-items: center;
@@ -82,8 +93,8 @@ page-players {
     //     height: 30px;
     //     justify-content: center;
     //     top:40px;
-    //     position: relative; 
-    //     }    
+    //     position: relative;
+    //     }
     .child{
         display: flex;
         flex-direction: column;
@@ -105,8 +116,8 @@ page-players {
             justify-content: center;
          //   border-color: red;
          //   border:1px solid blue;
-        }    
+        }
 
-    
+
 
 }
