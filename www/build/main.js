@@ -335,7 +335,9 @@ var AboutPage = (function () {
         var sortedPlayerDesc = this.arrivedPlayers.sort(function (a, b) { return a.strength - b.strength; });
         var total = this.arrivedPlayers.length;
         console.log('total : ' + total);
-        var players_in_group = 4; // number of players in each team
+        var team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+        var numberOfPlayers = team.players || 4;
+        var players_in_group = numberOfPlayers; // number of players in each team
         var remainder = total % players_in_group;
         var missingPlayers = players_in_group - remainder;
         var teams = (total - remainder) / players_in_group;

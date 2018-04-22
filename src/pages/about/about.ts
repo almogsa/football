@@ -81,7 +81,9 @@ export class AboutPage {
     let sortedPlayerDesc =  this.arrivedPlayers.sort( (a,b) => a.strength - b.strength);
     let total = this.arrivedPlayers.length;
     console.log('total : ' + total);
-    let players_in_group =  4; // number of players in each team
+    let team = localStorage.groupUser ? JSON.parse(localStorage.groupUser) : {};
+    let numberOfPlayers = team.players || 4;
+    let players_in_group =  numberOfPlayers; // number of players in each team
     let remainder = total % players_in_group;
     let missingPlayers = players_in_group - remainder;
 
